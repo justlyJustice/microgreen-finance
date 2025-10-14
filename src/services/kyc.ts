@@ -1,3 +1,4 @@
+import { CorporateFormData } from "../components/kyc/type";
 import client from "./client";
 
 function reverseDate(dateString: string) {
@@ -110,38 +111,42 @@ export const verifyCAC = (data: CACData) => {
   );
 };
 
-type CorporateKyc = {
+interface CorporateKyc extends CorporateFormData {
   account_number: string;
   business_name: string;
-  image: File;
   bank_name: string;
-  isMember: boolean;
-  corporativeName: string;
   verificationCode: string;
   profileNumber: string;
   accountName: string;
-};
+}
 
 export const verifyCorporateKYC = (data: CorporateKyc) => {
-  const formData = new FormData();
-
-  formData.append("account_number", data.account_number);
-  formData.append("business_name", data.business_name);
-  formData.append("image", data.image);
-  formData.append("bank_name", data.bank_name);
-  formData.append("profileNumber", data.profileNumber);
-  formData.append("corporativeName", data.corporativeName);
-  formData.append("isMember", JSON.stringify(data.isMember));
-  formData.append("verificationCode", data.verificationCode);
-  formData.append("accountName", data.accountName);
+  const formData = {
+    account_number: data.account_number,
+    bank_name: data.bank_name,
+    business_name: data.business_name,
+    certificateNumber: data.certificateNumber,
+    corporativeName: data.cooperativeName,
+    profileNumber: data.profileNumber,
+    verificationCode: data.verificationCode,
+    accountName: data.accountName,
+    chairmanDetails: {
+      name: data.chairmanName,
+      profileNumber: data.chairmanName ? data.profileNumber : "",
+      verificationCode: data.chairmanName ? data.verificationCode : "",
+      memberNumber: data.chairmanName ? data.memberNumber : "",
+    },
+    secretaryDetails: {
+      name: data.secretaryName,
+      profileNumber: data.secretaryName ? data.profileNumber : "",
+      verificationCode: data.secretaryName ? data.verificationCode : "",
+      memberNumber: data.secretaryName ? data.memberNumber : "",
+    },
+    cooperativeType: data.cooperativeType,
+  };
 
   return client.post<{ error: string; data: any; user: any }>(
     "/kyc/verify-corporate-business",
-    formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
+    formData
   );
 };

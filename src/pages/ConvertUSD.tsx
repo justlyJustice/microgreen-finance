@@ -439,8 +439,10 @@ const ConvertUSD: React.FC = () => {
           toast.success(res.data?.message!);
 
           setFundingStatus("successful");
+
           updateUser({
-            usdtBalance: usdBalance! + Number(res.data?.data.amount!),
+            balance: Math.round(res.data?.data.accountBalance!),
+            usdtBalance: usdBalance! + Number(res.data?.data.newTrx.amount!),
           });
 
           setStep(3);
@@ -670,7 +672,10 @@ const ConvertUSD: React.FC = () => {
                       </span>
 
                       <span className="font-semibold text-blue-600">
-                        {formatCurrency(netAmount, getTargetCurrency())}
+                        {formatCurrency(
+                          usdAmountBeforeFees!,
+                          getTargetCurrency()
+                        )}
                       </span>
                     </div>
                   </div>
@@ -754,12 +759,24 @@ const ConvertUSD: React.FC = () => {
                         )}
                       </span>
                     </div>
+
+                    <div className="flex items-center justify-between py-2 border-b border-primary-100">
+                      <span className="text-gray-600">USD Balance:</span>
+                      <span className="font-medium">
+                        {formatCurrency(
+                          user?.usdtBalance!,
+                          getTargetCurrency()
+                        )}
+                      </span>
+                    </div>
+
                     <div className="flex items-center justify-between py-2 border-b border-primary-100">
                       <span className="text-gray-600">To:</span>
                       <span className="font-medium">
                         {formatCurrency(netAmount, getTargetCurrency())}
                       </span>
                     </div>
+
                     <div className="flex items-center justify-between py-2 text-sm text-red-600">
                       <span>Total fees:</span>
                       <span>-{formatCurrency(fees.totalFee, "USD")}</span>
@@ -772,6 +789,7 @@ const ConvertUSD: React.FC = () => {
                     <span className="text-sm text-gray-500">
                       Current {getSourceCurrency()} Balance:
                     </span>
+
                     <span className="text-sm font-medium">
                       {formatCurrency(getCurrentBalance(), getSourceCurrency())}
                     </span>
@@ -783,7 +801,7 @@ const ConvertUSD: React.FC = () => {
 
                     <span className="text-sm font-medium">
                       {formatCurrency(
-                        getCurrentBalance() - parseFloat(sourceAmount),
+                        getCurrentBalance() - Number(sourceAmount),
                         getSourceCurrency()
                       )}
                     </span>
@@ -792,6 +810,7 @@ const ConvertUSD: React.FC = () => {
                     <span className="text-sm text-gray-500">
                       {getTargetCurrency()} Balance After:
                     </span>
+
                     <span className="text-sm font-medium">
                       {formatCurrency(
                         getTargetBalance() + netAmount,

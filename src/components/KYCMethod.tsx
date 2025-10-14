@@ -20,6 +20,7 @@ import {
 import { useAuthStore } from "../stores/authStore";
 import toast from "react-hot-toast";
 import CorporateKYCForm from "./kyc/Corporate";
+import { CorporateFormData } from "./kyc/type";
 
 interface KYCMethodProps {
   setMethod?: React.Dispatch<
@@ -38,7 +39,7 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
 }) => {
   const { user, updateUser } = useAuthStore();
   const [step, setStep] = useState<number>(method === "cac" ? 2 : 1);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<CorporateFormData>({
     number: "",
     firstName: "",
     lastName: "",
@@ -60,12 +61,28 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
     // Corporate specific fields
     account_number: "",
     bank_name: "",
-    image: "",
+    // image: "",
     business_name: "",
     name_enquiry_reference: "",
-    isMember: false,
-    corporativeName: "",
+    cooperativeName: "",
     profileNumber: "",
+    cooperativeType: "smedan",
+    certificateNumber: "",
+    memberNumber: "",
+    chairmanName: "",
+    secretaryName: "",
+    // chairmanDetails: {
+    //   memberNumber: "",
+    //   name: "",
+    //   profileNumber: "",
+    //   verificationCode: "",
+    // },
+    // secretaryDetails: {
+    //   memberNumber: "",
+    //   name: "",
+    //   profileNumber: "",
+    //   verificationCode: "",
+    // },
   });
   const [certificateFile, setCertificateFile] = useState<File | null>(null);
   const [activeTab, setActiveTab] = useState<"cac" | "corporate">("cac");
@@ -76,11 +93,16 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
+
     setFormData({
       ...formData,
       [name]: value,
     });
   };
+
+  const deductionAmount = method === "nin" ? 1000 : 5500;
+  const balanceAfterDeduction = user?.balance! - deductionAmount;
+  const leastExpectedBalance = 5000;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -186,8 +208,12 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
 
     if (method === "nin") {
       if (user?.balance! < 1000) {
+        return toast.error("Insufficient Balance");
+      }
+
+      if (balanceAfterDeduction < leastExpectedBalance) {
         return toast.error(
-          "Insufficient Balance. Cannot continue upgrade to Business Tier"
+          "User balance must hold at least N5,000 after kyc. Cannot upgrade to Business Tier."
         );
       }
 
@@ -248,6 +274,12 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
         );
       }
 
+      if (balanceAfterDeduction < leastExpectedBalance) {
+        return toast.error(
+          "User balance must hold at least N5,000 after kyc. Cannot upgrade to Business Tier."
+        );
+      }
+
       if (activeTab === "cac") {
         try {
           setLoading(true);
@@ -291,36 +323,26 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
         }
       } else {
         if (
-          formData.name_enquiry_reference.toLowerCase() !==
-          formData.business_name.toLowerCase()
+          formData.name_enquiry_reference.trim().toLowerCase() !==
+          formData.business_name.trim().toLowerCase()
         ) {
           return toast.error("Business name must match account name");
         }
 
-        if (!certificateFile) {
-          return toast.error("Please upload your certificate");
-        }
+        // if (!certificateFile) {
+        //   return toast.error("Please upload your certificate");
+        // }
 
         try {
           setLoading(true);
           const res = await verifyCorporateKYC({
-            account_number: formData.account_number,
-            business_name: formData.business_name,
-            image: certificateFile,
-            bank_name: formData.bank_name,
-            corporativeName: formData.corporativeName,
-            isMember: formData.isMember,
-            profileNumber: formData.profileNumber,
-            verificationCode: formData.verificationCode,
+            ...formData,
             accountName: formData.name_enquiry_reference,
           });
           setLoading(false);
-
           const resData = res.data;
-
           if (res.ok) {
             const user = resData?.data!;
-
             updateUser({
               isKYC: user.isKYC,
               tier: user.tier,
@@ -329,7 +351,6 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
             toast.success("Success");
             onComplete();
           }
-
           if (!res.ok) {
             toast.error(resData?.error || "Something went wrong!");
           }

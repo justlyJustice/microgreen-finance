@@ -1,43 +1,61 @@
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import {
   CreditCard,
-  FileText,
+  // FileText,
   // Landmark,
-  Trash2,
-  UploadCloud,
+  // Trash2,
+  // UploadCloud,
   // User,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import { useBankStore } from "../../stores/banksStore";
 
 import { verifyAccountName } from "../../services/transfer";
+import { CorporateFormData } from "./type";
 
-interface CorporateFormData {
-  number: string;
-  firstName: string;
-  lastName: string;
-  dateOfBirth: string;
-  phoneNumber: string;
-  // verificationCode: string;
-  trx: string;
-  email: string;
-  rcNumber: string;
-  companyType: "RC" | "BN";
-  entityType: "RC" | "BN";
-  companyName: string;
-  city: string;
-  occupation: string;
-  gender: "MALE" | "FEMALE";
-  account_number: string;
-  bank_name: string;
-  image: string;
-  business_name: string;
-  name_enquiry_reference: string;
-  isMember: boolean;
-  corporativeName: string;
-  profileNumber: string;
-  verificationCode: string;
-}
+// type PersonalDetails = {
+//   name: string;
+//   profileNumber: string;
+//   verificationCode: string;
+//   memberNumber: string;
+// };
+
+// type CooperativeType =
+//   | "smedan"
+//   | "cooperative-owner"
+//   | "cooperative-member"
+//   | "solo-cooperative";
+
+// export interface CorporateFormData {
+//   number: string;
+//   firstName: string;
+//   lastName: string;
+//   dateOfBirth: string;
+//   phoneNumber: string;
+//   cooperativeType: CooperativeType;
+//   trx: string;
+//   email: string;
+//   rcNumber: string;
+//   companyType: "RC" | "BN";
+//   entityType: "RC" | "BN";
+//   companyName: string;
+//   city: string;
+//   occupation: string;
+//   gender: "MALE" | "FEMALE";
+//   account_number: string;
+//   bank_name: string;
+//   image: string;
+//   business_name: string;
+//   name_enquiry_reference: string;
+//   isMember: boolean;
+//   corporativeName: string;
+//   profileNumber: string;
+//   verificationCode: string;
+//   memberNumber: string;
+//   certificateNumber: string;
+//   chairmanDetails: PersonalDetails;
+//   secretaryDetails: PersonalDetails;
+// }
 
 interface CorporateProps {
   formData: CorporateFormData;
@@ -46,52 +64,71 @@ interface CorporateProps {
   setCertificateFile: React.Dispatch<React.SetStateAction<File | null>>;
 }
 
+const corporateTypes = [
+  {
+    name: "SMEDAN",
+    key: "smedan",
+  },
+  {
+    name: "COOPERATIVE OWNER",
+    key: "cooperative-owner",
+  },
+  {
+    name: "COOPERATIVE MEMBER",
+    key: "cooperative-member",
+  },
+  {
+    name: "SOLO COOPERATIVE",
+    key: "solo-cooperative",
+  },
+];
+
 const CorporateKYCForm = ({
   formData,
   setFormData,
-  certificateFile,
-  setCertificateFile,
-}: CorporateProps) => {
+}: // certificateFile,
+// setCertificateFile,
+CorporateProps) => {
   const banks = useBankStore((state) => state.banks);
   const [bankName, setBankName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const [certificatePreview, setCertificatePreview] = useState<string | null>(
-    null
-  );
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  // const [certificatePreview, setCertificatePreview] = useState<string | null>(
+  //   null
+  // );
+  // const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0];
+  //   if (!file) return;
 
-    // Validate file type (PDF or image)
-    const validTypes = ["application/pdf", "image/jpeg", "image/png"];
-    if (!validTypes.includes(file.type)) {
-      toast.error("Please upload a PDF, JPEG, or PNG file");
-      return;
-    }
+  //   // Validate file type (PDF or image)
+  //   const validTypes = ["application/pdf", "image/jpeg", "image/png"];
+  //   if (!validTypes.includes(file.type)) {
+  //     toast.error("Please upload a PDF, JPEG, or PNG file");
+  //     return;
+  //   }
 
-    // Validate file size (max 500MB)
-    if (file.size > 500 * 1024 * 1024) {
-      toast.error("File size must be less than 500MB");
-      return;
-    }
+  //   // Validate file size (max 500MB)
+  //   if (file.size > 500 * 1024 * 1024) {
+  //     toast.error("File size must be less than 500MB");
+  //     return;
+  //   }
 
-    setCertificateFile(file);
+  //   setCertificateFile(file);
 
-    // Create preview for images
-    if (file.type.startsWith("image/")) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setCertificatePreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    } else {
-      setCertificatePreview(null);
-    }
-  };
+  //   // Create preview for images
+  //   if (file.type.startsWith("image/")) {
+  //     const reader = new FileReader();
+  //     reader.onload = () => {
+  //       setCertificatePreview(reader.result as string);
+  //     };
+  //     reader.readAsDataURL(file);
+  //   } else {
+  //     setCertificatePreview(null);
+  //   }
+  // };
 
   const handleValidateAccount = async () => {
     setError("");
@@ -166,13 +203,15 @@ const CorporateKYCForm = ({
     }));
   }
 
-  const handleRemoveFile = () => {
-    setCertificateFile(null);
-    setCertificatePreview(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-  };
+  const handleUpdateDetail = (key: string, value: string) => {};
+
+  // const handleRemoveFile = () => {
+  //   setCertificateFile(null);
+  //   setCertificatePreview(null);
+  //   if (fileInputRef.current) {
+  //     fileInputRef.current.value = "";
+  //   }
+  // };
 
   return (
     <div className="space-y-2">
@@ -182,96 +221,103 @@ const CorporateKYCForm = ({
         </div>
       )}
 
-      {!formData.isMember && (
-        <>
-          <div className="grid grid-cols-2 gap-2">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Account Number
-              </label>
+      <select
+        name="cooperativeType"
+        id="cooperativeType"
+        className="input"
+        onChange={handleInputChange}
+        value={formData.cooperativeType}
+      >
+        <option value="">Select</option>
+        {corporateTypes.map((cType, i) => (
+          <option key={i} value={cType.key}>
+            {cType.name}
+          </option>
+        ))}
+      </select>
 
-              <div className="relative rounded-md shadow-sm">
-                <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
-                  <CreditCard size={16} className="text-gray-400" />
-                </div>
-
-                <input
-                  type="text"
-                  name="account_number"
-                  value={formData.account_number}
-                  onChange={handleInputChange}
-                  className="input pl-10"
-                  placeholder="Account Number"
-                  required
-                />
-              </div>
-            </div>
+      <>
+        <div className="grid grid-cols-2 gap-2">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Account Number
+            </label>
 
             <div className="relative rounded-md shadow-sm">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Bank Name
-              </label>
+              <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
+                <CreditCard size={16} className="text-gray-400" />
+              </div>
 
-              {/* <div className="absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none">
+              <input
+                type="text"
+                name="account_number"
+                value={formData.account_number}
+                onChange={handleInputChange}
+                className="input pl-10"
+                placeholder="Account Number"
+                required
+              />
+            </div>
+          </div>
+
+          <div className="relative rounded-md shadow-sm">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Bank Name
+            </label>
+
+            {/* <div className="absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none">
             <Landmark size={16} className="text-gray-400" />
           </div> */}
 
-              <select
-                disabled={formData.account_number.length <= 5}
-                className="input"
-                name="bank_name"
-                id="bank-select"
-                value={bankName}
-                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-                  const { value } = e.target;
-                  setBankName(value);
-
-                  const selectedBank = banks.filter(
-                    (bank) => bank.name === value
-                  )[0];
-
-                  setFormData((prevValues) => ({
-                    ...prevValues,
-                    bank_name: selectedBank.name,
-                    bank_code: selectedBank.code,
-                  }));
-                }}
-              >
-                <option value="">Select Bank</option>
-
-                {banks.map((bank, i) => (
-                  <option className="ml-2" key={i} value={bank.name}>
-                    {bank.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <div className="relative">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Account Name
-            </label>
-
-            {/* <div className="absolute inset-y-0 left-0 top-1 pl-1 flex items-center pointer-events-none">
-          <User className="h-4 w-3 text-gray-400" />
-        </div> */}
-
-            <input
-              disabled
-              type="text"
-              name="account_name"
-              value={
-                loading ? "Validating..." : formData.name_enquiry_reference
-              }
-              onChange={handleInputChange}
+            <select
+              disabled={formData.account_number.length <= 5}
               className="input"
-              placeholder="Account Name"
-              required
-            />
+              name="bank_name"
+              id="bank-select"
+              value={bankName}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                const { value } = e.target;
+                setBankName(value);
+
+                const selectedBank = banks.filter(
+                  (bank) => bank.name === value
+                )[0];
+
+                setFormData((prevValues) => ({
+                  ...prevValues,
+                  bank_name: selectedBank.name,
+                  bank_code: selectedBank.code,
+                }));
+              }}
+            >
+              <option value="">Select Bank</option>
+
+              {banks.map((bank, i) => (
+                <option className="ml-2" key={i} value={bank.name}>
+                  {bank.name}
+                </option>
+              ))}
+            </select>
           </div>
-        </>
-      )}
+        </div>
+
+        <div className="relative">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Account Name
+          </label>
+
+          <input
+            disabled
+            type="text"
+            name="account_name"
+            value={loading ? "Validating..." : formData.name_enquiry_reference}
+            onChange={handleInputChange}
+            className="input"
+            placeholder="Account Name"
+            required
+          />
+        </div>
+      </>
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -289,7 +335,7 @@ const CorporateKYCForm = ({
         />
       </div>
 
-      {!formData.isMember && (
+      {/* {!formData.isMember && (
         <div className="space-y-2">
           <label className="block text-sm font-medium text-gray-700 mb-1">
             CAC Certificate
@@ -358,84 +404,142 @@ const CorporateKYCForm = ({
             </div>
           )}
         </div>
+      )} */}
+
+      <div className="flex border-b border-gray-200 mb-6"></div>
+
+      {(formData.cooperativeType === "cooperative-owner" ||
+        formData.cooperativeType === "cooperative-member") && (
+        <div className="relative">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Cooperative Name
+          </label>
+
+          <input
+            type="text"
+            name="cooperativeName"
+            value={formData.cooperativeName}
+            onChange={handleInputChange}
+            className="input"
+            placeholder="Cooperative Name"
+          />
+        </div>
       )}
 
-      <div className="space-y-2">
-        <div className="flex gap-1">
+      {(formData.cooperativeType === "smedan" ||
+        formData.cooperativeType === "cooperative-owner" ||
+        formData.cooperativeType === "solo-cooperative") && (
+        <>
+          <div className="relative">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Certificate Number
+            </label>
+
+            <input
+              type="text"
+              name="certificateNumber"
+              value={formData.certificateNumber}
+              onChange={handleInputChange}
+              className="input"
+              placeholder="Certificate Number"
+            />
+          </div>
+        </>
+      )}
+
+      {formData.cooperativeType === "cooperative-owner" && (
+        <>
+          <div className="relative">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Chairman Name
+            </label>
+
+            <input
+              type="text"
+              name="chairmanName"
+              value={formData.chairmanName}
+              onChange={handleInputChange}
+              className="input"
+              placeholder="Chairman Name"
+            />
+          </div>
+
+          <div className="relative">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Secretary Name
+            </label>
+
+            <input
+              type="text"
+              name="secretaryName"
+              value={formData.secretaryName}
+              onChange={handleInputChange}
+              className="input"
+              placeholder="Secretary Name"
+            />
+          </div>
+        </>
+      )}
+
+      {(formData.cooperativeType === "smedan" ||
+        formData.cooperativeType === "cooperative-owner" ||
+        formData.cooperativeType === "solo-cooperative") && (
+        <div className="relative">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Member Number
+          </label>
+
           <input
-            type="checkbox"
-            className="checkbox"
-            onChange={(e) => {
-              const checked = e.target.checked;
-
-              setFormData((prev) => ({ ...prev, isMember: checked }));
-            }}
+            type="text"
+            name="memberNumber"
+            value={formData.memberNumber}
+            onChange={handleInputChange}
+            className="input"
+            placeholder="Member Number"
           />
-          <span className="text-gray-500 text-sm">
-            Are you a Corporative Member?
-          </span>
         </div>
+      )}
 
+      {(formData.cooperativeType === "smedan" ||
+        formData.cooperativeType === "cooperative-owner") && (
+        <div className="grid grid-cols-2 gap-2">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Verification Code
+            </label>
+
+            <input
+              type="text"
+              name="verificationCode"
+              value={formData.verificationCode}
+              onChange={handleInputChange}
+              className="input"
+              placeholder="Verification Code"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Profile Number
+            </label>
+
+            <input
+              type="text"
+              name="profileNumber"
+              value={formData.profileNumber}
+              onChange={handleInputChange}
+              className="input"
+              placeholder="Profile Number"
+            />
+          </div>
+        </div>
+      )}
+
+      {/* <div className="space-y-2">
         {formData.isMember && (
-          <>
-            <div className="flex border-b border-gray-200 mb-6"></div>
-
-            <div className="relative">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Corporative Name
-              </label>
-
-              {/* <div className="absolute inset-y-0 left-0 top-1 pl-1 flex items-center pointer-events-none">
-          <User className="h-4 w-3 text-gray-400" />
-        </div> */}
-
-              <input
-                type="text"
-                name="corporativeName"
-                value={formData.corporativeName}
-                onChange={handleInputChange}
-                className="input"
-                placeholder="Corporate Name"
-                required={formData.isMember}
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-2">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Verification Code
-                </label>
-
-                <input
-                  type="text"
-                  name="verificationCode"
-                  value={formData.verificationCode}
-                  onChange={handleInputChange}
-                  className="input"
-                  placeholder="Verification Code"
-                  required={formData.isMember}
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Profile Number
-                </label>
-
-                <input
-                  type="text"
-                  name="profileNumber"
-                  value={formData.profileNumber}
-                  onChange={handleInputChange}
-                  className="input"
-                  placeholder="Profile Number"
-                  required={formData.isMember}
-                />
-              </div>
-            </div>
-          </>
+         
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

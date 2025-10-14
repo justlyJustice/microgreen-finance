@@ -886,7 +886,9 @@ const Profile: React.FC = () => {
                                 Verification/Legal Search and Verification,
                                 which will incure a service charge of{" "}
                                 {formatCurrency(1000)} and{" "}
-                                {formatCurrency(5500)} appropriately.
+                                {formatCurrency(5500)} appropriately; and hold a
+                                balance of at least {formatCurrency(5000)} after
+                                each completion.
                               </p>
 
                               <p className="mt-1">
@@ -957,7 +959,7 @@ const Profile: React.FC = () => {
 
                               <button
                                 // disabled
-                                // disabled={verificationMethod === "cac"}
+                                disabled={verificationMethod === "cac"}
                                 onClick={() => {
                                   if (user.usdtBalance < 15) {
                                     return toast.error(

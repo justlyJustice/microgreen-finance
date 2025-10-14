@@ -9,7 +9,10 @@ export const fundUsdAccount = (amount: number) =>
     success: boolean;
     message: string;
     data: {
-      amount: number;
+      newTrx: {
+        amount: number;
+      };
+      accountBalance: number;
     };
     // reference: string;
   }>(`/users/deposit-usd?amount=${amount}`);
