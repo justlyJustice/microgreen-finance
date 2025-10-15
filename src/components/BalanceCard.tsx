@@ -43,7 +43,7 @@ const BalanceCard: React.FC<{
 
   return (
     <div className="bg-gradient-to-br from-primary-600 to-primary-700 rounded-card shadow-card p-6 text-white h-fit">
-      <div className="flex items-center justify-between mb-2">
+      <div className="flex items-center justify-between mb-2 max-sm:flex-col">
         <div className="flex items-center">
           <Wallet className="h-8 w-8" />
           <h2 className="ml-2 text-xl font-semibold">Your Balance</h2>

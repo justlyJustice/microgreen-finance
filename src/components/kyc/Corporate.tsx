@@ -13,50 +13,6 @@ import { useBankStore } from "../../stores/banksStore";
 import { verifyAccountName } from "../../services/transfer";
 import { CorporateFormData } from "./type";
 
-// type PersonalDetails = {
-//   name: string;
-//   profileNumber: string;
-//   verificationCode: string;
-//   memberNumber: string;
-// };
-
-// type CooperativeType =
-//   | "smedan"
-//   | "cooperative-owner"
-//   | "cooperative-member"
-//   | "solo-cooperative";
-
-// export interface CorporateFormData {
-//   number: string;
-//   firstName: string;
-//   lastName: string;
-//   dateOfBirth: string;
-//   phoneNumber: string;
-//   cooperativeType: CooperativeType;
-//   trx: string;
-//   email: string;
-//   rcNumber: string;
-//   companyType: "RC" | "BN";
-//   entityType: "RC" | "BN";
-//   companyName: string;
-//   city: string;
-//   occupation: string;
-//   gender: "MALE" | "FEMALE";
-//   account_number: string;
-//   bank_name: string;
-//   image: string;
-//   business_name: string;
-//   name_enquiry_reference: string;
-//   isMember: boolean;
-//   corporativeName: string;
-//   profileNumber: string;
-//   verificationCode: string;
-//   memberNumber: string;
-//   certificateNumber: string;
-//   chairmanDetails: PersonalDetails;
-//   secretaryDetails: PersonalDetails;
-// }
-
 interface CorporateProps {
   formData: CorporateFormData;
   setFormData: React.Dispatch<React.SetStateAction<CorporateFormData>>;
@@ -203,8 +159,6 @@ CorporateProps) => {
     }));
   }
 
-  const handleUpdateDetail = (key: string, value: string) => {};
-
   // const handleRemoveFile = () => {
   //   setCertificateFile(null);
   //   setCertificatePreview(null);
@@ -237,7 +191,7 @@ CorporateProps) => {
       </select>
 
       <>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-2 max-sm:grid-cols-1">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Account Number
@@ -502,7 +456,7 @@ CorporateProps) => {
 
       {(formData.cooperativeType === "smedan" ||
         formData.cooperativeType === "cooperative-owner") && (
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-2 max-sm:grid-cols-1">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Verification Code

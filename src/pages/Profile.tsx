@@ -26,7 +26,7 @@ const Profile: React.FC = () => {
 
   const [verificationMethod, setVerificationMethod] = useState<
     "bvn" | "nin" | "cac" | null
-  >(null);
+  >("cac");
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     fullName: user?.fullName || "",
@@ -104,7 +104,7 @@ const Profile: React.FC = () => {
           Account Tier Benefits
         </h3>
 
-        <div className="grid lg:grid-cols-3 gap-3 md:grid-cols-1">
+        <div className="grid lg:grid-cols-3 gap-3 md:grid-cols-1 max-md:grid-cols-1">
           {/* Personal Tier */}
           <div
             className={`border rounded-lg p-3 h-fit w-fit md:w-[100%] ${
@@ -868,13 +868,13 @@ const Profile: React.FC = () => {
                   <div className="space-y-4">
                     {(user?.tier === "business" ||
                       user?.tier === "individual") && (
-                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                        <div className="flex">
+                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 max-sm:text-center max-sm:w-full">
+                        <div className="flex max-sm:flex-col max-sm:gap-1 max-sm:items-center">
                           <div className="flex-shrink-0">
                             <Shield className="h-5 w-5 text-blue-400" />
                           </div>
 
-                          <div className="ml-3">
+                          <div className="ml-3 max-sm:ml-0">
                             <h3 className="text-sm font-medium text-blue-800">
                               Identity Verification
                             </h3>
@@ -885,10 +885,18 @@ const Profile: React.FC = () => {
                                 verify your identity, using NIN and CAC
                                 Verification/Legal Search and Verification,
                                 which will incure a service charge of{" "}
-                                {formatCurrency(1000)} and{" "}
-                                {formatCurrency(5500)} appropriately; and hold a
-                                balance of at least {formatCurrency(5000)} after
-                                each completion.
+                                <span className="font-bold">
+                                  {formatCurrency(1000)}
+                                </span>{" "}
+                                and{" "}
+                                <span className="font-bold">
+                                  {formatCurrency(5500)}
+                                </span>{" "}
+                                appropriately; and hold a balance of at least{" "}
+                                <div className="font-bold">
+                                  {formatCurrency(5000)}
+                                </div>{" "}
+                                after each completion.
                               </p>
 
                               <p className="mt-1">

@@ -232,7 +232,7 @@ const CardCustomerForm = ({
 
             <div className="flex border-b border-gray-200"></div>
 
-            <div className="grid grid-cols-2 gap-1">
+            <div className="grid grid-cols-2 gap-1 max-sm:grid-cols-1">
               <div className="relative">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   ID Type <span className="text-red-500">*</span>

@@ -10,12 +10,12 @@ const VerificationStatus: React.FC<VerificationStatusProps> = ({
   state,
 }) => {
   return (
-    <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 mt-4">
+    <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 mt-4 max-sm:p-3">
       <div className="flex flex-col items-center text-center">
         <div
           className={`p-3 bg-${
             state === "pending" ? "yellow" : "green"
-          }-100 rounded-full mb-2`}
+          }-100 rounded-full mb-2 max-sm:p-2`}
         >
           {state === "pending" ? (
             <Clock className="h-8 w-8 text-yellow-500" />
@@ -36,8 +36,8 @@ const VerificationStatus: React.FC<VerificationStatusProps> = ({
         </p>
 
         <div className="w-full max-w-md bg-gray-50 rounded-lg p-4">
-          <div className="flex items-center justify-between py-2">
-            <span className="text-sm font-medium text-gray-500">
+          <div className="flex items-center justify-between py-2 max-sm:justify-center">
+            <span className="text-sm font-medium text-gray-500 max-sm:hidden">
               Verification Method
             </span>
 
@@ -46,8 +46,10 @@ const VerificationStatus: React.FC<VerificationStatusProps> = ({
             </span>
           </div>
 
-          <div className="flex items-center justify-between py-2 border-t border-gray-200">
-            <span className="text-sm font-medium text-gray-500">Status</span>
+          <div className="flex items-center justify-between py-2 border-t border-gray-200 max-sm:flex-col">
+            <span className="text-sm font-medium text-gray-500 max-md:hidden">
+              Status
+            </span>
             <span className="inline-flex items-center">
               <BadgeCheck
                 className={`h-4 w-4 text-${

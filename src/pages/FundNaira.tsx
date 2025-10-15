@@ -296,14 +296,17 @@ const FundNaira: React.FC = () => {
               </div>
 
               <div className="mt-4 p-3 bg-blue-50 border border-blue-100 rounded-lg">
-                <h3 className="text-sm font-medium text-blue-800 mb-1">
+                <h3 className="text-sm font-medium text-blue-800 mb-1 max-sm:text-center">
                   Transaction Details
                 </h3>
-                <div className="grid grid-cols-2 gap-2 text-sm">
+
+                <div className="grid grid-cols-2 gap-2 text-sm max-sm:gap-1 max-sm:text-center">
                   <div className="text-gray-600">Amount to deposit:</div>
+
                   <div className="text-right font-medium">
                     {formatCurrency(parseFloat(nairaAmount) || 0)}
                   </div>
+
                   <div className="text-gray-600">Percentage fee (2.5%):</div>
                   <div className="text-right font-medium">
                     -{formatCurrency(totalFee || 0)}
@@ -319,7 +322,7 @@ const FundNaira: React.FC = () => {
                     {formatCurrency(netAmount || 0)}
                   </div>
                 </div>
-                <p className="text-xs text-blue-600 mt-2">
+                <p className="text-xs text-blue-600 mt-2 max-sm:text-center">
                   This is the amount that will be credited to your wallet.
                 </p>
               </div>
@@ -377,23 +380,27 @@ const FundNaira: React.FC = () => {
             <form onSubmit={handleSubmit}>
               <div className="space-y-4">
                 <div className="p-4 bg-primary-50 border border-primary-100 rounded-lg">
-                  <h3 className="font-medium text-primary-800 mb-2">
+                  <h3 className="font-medium text-primary-800 mb-2 max-sm:text-center">
                     Bank Transfer Instructions
                   </h3>
-                  <ul className="text-sm text-primary-700 space-y-1">
-                    <li className="flex items-center">
+
+                  <ul className="text-sm text-primary-700 space-y-2">
+                    <li className="flex items-center max-sm:flex-col max-sm:text-center">
                       <span className="h-5 w-5 rounded-full bg-primary-200 text-primary-800 inline-flex items-center justify-center mr-2 flex-shrink-0 text-xs">
                         1
                       </span>
+
                       <span>Log in to your bank account</span>
                     </li>
-                    <li className="flex items-center">
+
+                    <li className="flex items-center max-sm:flex-col max-sm:text-center">
                       <span className="h-5 w-5 rounded-full bg-primary-200 text-primary-800 inline-flex items-center justify-center mr-2 flex-shrink-0 text-xs">
                         2
                       </span>
                       <span>Make a transfer to the following account</span>
                     </li>
-                    <li className="flex items-center">
+
+                    <li className="flex items-center max-sm:flex-col max-sm:text-center">
                       <span className="h-5 w-5 rounded-full bg-primary-200 text-primary-800 inline-flex items-center justify-center mr-2 flex-shrink-0 text-xs">
                         3
                       </span>
@@ -405,19 +412,20 @@ const FundNaira: React.FC = () => {
                 </div>
 
                 <div className="p-2 bg-gray-50 border border-gray-200 rounded-lg items-center">
-                  <div className="flex justify-between mb-2">
+                  <div className="flex justify-between mb-2 max-sm:flex-col max-sm:text-center">
                     <span className="text-sm text-gray-500">Bank Name:</span>
                     <span className="text-sm font-medium">
                       {user?.bankInformation.bankName}
                     </span>
                   </div>
-                  <div className="flex justify-between mb-2">
+
+                  <div className="flex justify-between mb-2 max-sm:flex-col max-sm:text-center">
                     <span className="text-sm text-gray-500">Account Name:</span>
                     <span className="text-sm font-medium">
                       {user?.bankInformation.accountName}
                     </span>
                   </div>
-                  <div className="flex justify-between mb-2">
+                  <div className="flex justify-between mb-2 max-sm:flex-col max-sm:text-center">
                     <span className="text-sm text-gray-500">
                       Account Number:
                     </span>
@@ -500,7 +508,7 @@ const FundNaira: React.FC = () => {
                 )}
               </div>
 
-              <div className="flex justify-between mt-6">
+              <div className="flex justify-between mt-4 max-sm:flex-col max-sm:mt-2 max-sm:space-y-2">
                 <button
                   type="button"
                   onClick={() => setStep(1)}
@@ -508,6 +516,7 @@ const FundNaira: React.FC = () => {
                 >
                   Back
                 </button>
+
                 <button
                   type="submit"
                   disabled={isLoading}
@@ -561,6 +570,7 @@ const FundNaira: React.FC = () => {
             <h2 className="text-2xl font-bold text-gray-900 mb-2">
               Funds Added Successfully!
             </h2>
+
             <p className="text-gray-600 mb-4">
               {formatCurrency(netAmount)} has been credited to your wallet
               <span className="block text-sm text-gray-500 mt-1">

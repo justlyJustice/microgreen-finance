@@ -690,7 +690,7 @@ const ConvertUSD: React.FC = () => {
               )}
             </div>
 
-            <div className="flex justify-end">
+            <div className="flex justify-end max-sm:justify-start">
               <button
                 type="button"
                 onClick={() => {
@@ -705,7 +705,7 @@ const ConvertUSD: React.FC = () => {
 
                   setStep(2);
                 }}
-                className="btn btn-primary text-white px-4"
+                className="btn btn-primary text-white px-4 max-sm:w-full"
                 disabled={
                   !sourceAmount ||
                   parseFloat(sourceAmount) <= 0 ||
@@ -745,7 +745,7 @@ const ConvertUSD: React.FC = () => {
             <form onSubmit={handleConvert}>
               <div className="space-y-4">
                 <div className="p-4 bg-primary-50 border border-primary-100 rounded-lg">
-                  <h3 className="font-medium text-primary-800 mb-2">
+                  <h3 className="font-medium text-primary-800 mb-2 max-sm:text-center max-sm:text-base">
                     Conversion Summary
                   </h3>
 
@@ -821,7 +821,7 @@ const ConvertUSD: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex justify-between mt-6">
+              <div className="flex justify-between mt-6 max-sm:flex-col max-sm:gap-1 max-sm:mt-3">
                 <button
                   type="button"
                   onClick={() => setStep(1)}
@@ -832,7 +832,7 @@ const ConvertUSD: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="btn btn-primary px-6"
+                  className="btn btn-primary px-6 max-sm:w-full max-sm:px-2"
                 >
                   {isLoading ? "Processing..." : "Confirm Conversion"}
                 </button>

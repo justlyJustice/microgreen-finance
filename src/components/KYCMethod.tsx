@@ -366,7 +366,7 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 mt-6"
+      className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 mt-6 max-sm:p-3"
     >
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-lg font-medium text-gray-900">
@@ -446,7 +446,7 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-2 max-sm:grid-cols-1">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   First Name
@@ -589,7 +589,7 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
 
         {step === 2 && method === "cac" && (
           <>
-            <div className="flex border-b border-gray-200 mb-6">
+            <div className="flex border-b border-gray-200 mb-6 max-sm:flex-col">
               <button
                 className={`py-2 px-4 font-medium text-sm ${
                   activeTab === "cac"
@@ -617,7 +617,7 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
 
             {activeTab === "cac" && (
               <div className="space-y-2">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4 max-sm:grid-cols-1 max-sm:gap-1">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       RC/BN Number
@@ -719,7 +719,7 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4 max-sm:grid-cols-1 max-sm:gap-1">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Director First Name
@@ -751,7 +751,7 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4 max-sm:grid-cols-1 max-sm:gap-1">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Gender
@@ -773,6 +773,7 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Phone Number
                     </label>
+
                     <div className="relative rounded-md shadow-sm">
                       <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
                         <Smartphone size={16} className="text-gray-400" />
@@ -790,11 +791,12 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4 max-sm:grid-cols-1 max-sm:gap-1">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       City
                     </label>
+
                     <input
                       type="text"
                       name="city"
@@ -810,6 +812,7 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Occupation
                     </label>
+
                     <input
                       type="text"
                       name="occupation"
@@ -835,7 +838,7 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
           </>
         )}
 
-        <div className="mt-4 flex justify-end space-x-3">
+        <div className="mt-4 flex justify-end space-x-3 max-sm:justify-start max-sm:space-x-0 max-sm:mt-2">
           {/* {step === 2 && (
             <button
               type="button"
@@ -846,7 +849,11 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
             </button>
           )} */}
 
-          <button type="submit" className="btn btn-primary" disabled={loading}>
+          <button
+            type="submit"
+            className="btn btn-primary max-sm:w-full"
+            disabled={loading}
+          >
             {loading ? "Loading..." : "Submit "}
           </button>
         </div>
