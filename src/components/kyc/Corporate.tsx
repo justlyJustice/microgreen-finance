@@ -1,16 +1,16 @@
-import { ChangeEvent, useEffect, useState } from "react";
-import {
-  CreditCard,
-  // FileText,
-  // Landmark,
-  // Trash2,
-  // UploadCloud,
-  // User,
-} from "lucide-react";
-import toast from "react-hot-toast";
-import { useBankStore } from "../../stores/banksStore";
+import { ChangeEvent, useState } from "react";
+// import {
+//   CreditCard,
+// FileText,
+// Landmark,
+// Trash2,
+// UploadCloud,
+// User,
+// } from "lucide-react";
+// import toast from "react-hot-toast";
+// import { useBankStore } from "../../stores/banksStore";
 
-import { verifyAccountName } from "../../services/transfer";
+// import { verifyAccountName } from "../../services/transfer";
 import { CorporateFormData } from "./type";
 
 interface CorporateProps {
@@ -45,10 +45,10 @@ const CorporateKYCForm = ({
 }: // certificateFile,
 // setCertificateFile,
 CorporateProps) => {
-  const banks = useBankStore((state) => state.banks);
-  const [bankName, setBankName] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  // const banks = useBankStore((state) => state.banks);
+  // const [bankName, setBankName] = useState("");
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState("");
 
   // const [certificatePreview, setCertificatePreview] = useState<string | null>(
   //   null
@@ -86,67 +86,67 @@ CorporateProps) => {
   //   }
   // };
 
-  const handleValidateAccount = async () => {
-    setError("");
-    setFormData((prevValues) => ({
-      ...prevValues,
-      name_enquiry_reference: "",
-    }));
+  // const handleValidateAccount = async () => {
+  //   setError("");
+  //   setFormData((prevValues) => ({
+  //     ...prevValues,
+  //     name_enquiry_reference: "",
+  //   }));
 
-    try {
-      setLoading(true);
-      const res = await verifyAccountName(
-        formData.bank_name,
-        formData.account_number
-      );
-      setLoading(false);
+  //   try {
+  //     setLoading(true);
+  //     const res = await verifyAccountName(
+  //       formData.bank_name,
+  //       formData.account_number
+  //     );
+  //     setLoading(false);
 
-      if (!res && res === null) {
-        toast.error("Something went wrong");
-        setError("Something went wrong");
+  //     if (!res && res === null) {
+  //       toast.error("Something went wrong");
+  //       setError("Something went wrong");
 
-        return setTimeout(() => {
-          setError("");
-        }, 5000);
-      }
+  //       return setTimeout(() => {
+  //         setError("");
+  //       }, 5000);
+  //     }
 
-      if (!res.ok) {
-        // const error = res.data?.error;
+  //     if (!res.ok) {
+  //       // const error = res.data?.error;
 
-        toast.error(res?.data!.error);
-        setError(res?.data!.error);
+  //       toast.error(res?.data!.error);
+  //       setError(res?.data!.error);
 
-        return setTimeout(() => {
-          setError("");
-        }, 5000);
-      } else {
-        const data = res?.data!.data.data;
+  //       return setTimeout(() => {
+  //         setError("");
+  //       }, 5000);
+  //     } else {
+  //       const data = res?.data!.data.data;
 
-        setFormData((prevValues) => ({
-          ...prevValues,
-          name_enquiry_reference: data.account_name,
-        }));
-      }
-    } catch (error: any) {
-      console.log(error);
-      toast.error(error.message || "Something went wrong");
-    } finally {
-      setLoading(false);
-    }
-  };
+  //       setFormData((prevValues) => ({
+  //         ...prevValues,
+  //         name_enquiry_reference: data.account_name,
+  //       }));
+  //     }
+  //   } catch (error: any) {
+  //     console.log(error);
+  //     toast.error(error.message || "Something went wrong");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    if (!bankName || bankName === "") return;
+  // useEffect(() => {
+  //   if (!bankName || bankName === "") return;
 
-    handleValidateAccount();
-  }, [bankName]);
+  //   handleValidateAccount();
+  // }, [bankName]);
 
-  useEffect(() => {
-    if (formData.account_number === "") {
-      setBankName("");
-      setFormData((prev) => ({ ...prev, name_enquiry_reference: "" }));
-    }
-  }, [formData.account_number]);
+  // useEffect(() => {
+  //   if (formData.account_number === "") {
+  //     setBankName("");
+  //     setFormData((prev) => ({ ...prev, name_enquiry_reference: "" }));
+  //   }
+  // }, [formData.account_number]);
 
   function handleInputChange(
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -169,11 +169,11 @@ CorporateProps) => {
 
   return (
     <div className="space-y-2">
-      {error && (
+      {/* {error && (
         <div className="mb-1 p-2 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">
           {error}
         </div>
-      )}
+      )} */}
 
       <select
         name="cooperativeType"
@@ -190,88 +190,7 @@ CorporateProps) => {
         ))}
       </select>
 
-      <>
-        <div className="grid grid-cols-2 gap-2 max-sm:grid-cols-1">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Account Number
-            </label>
-
-            <div className="relative rounded-md shadow-sm">
-              <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
-                <CreditCard size={16} className="text-gray-400" />
-              </div>
-
-              <input
-                type="text"
-                name="account_number"
-                value={formData.account_number}
-                onChange={handleInputChange}
-                className="input pl-10"
-                placeholder="Account Number"
-                required
-              />
-            </div>
-          </div>
-
-          <div className="relative rounded-md shadow-sm">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Bank Name
-            </label>
-
-            {/* <div className="absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none">
-            <Landmark size={16} className="text-gray-400" />
-          </div> */}
-
-            <select
-              disabled={formData.account_number.length <= 5}
-              className="input"
-              name="bank_name"
-              id="bank-select"
-              value={bankName}
-              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-                const { value } = e.target;
-                setBankName(value);
-
-                const selectedBank = banks.filter(
-                  (bank) => bank.name === value
-                )[0];
-
-                setFormData((prevValues) => ({
-                  ...prevValues,
-                  bank_name: selectedBank.name,
-                  bank_code: selectedBank.code,
-                }));
-              }}
-            >
-              <option value="">Select Bank</option>
-
-              {banks.map((bank, i) => (
-                <option className="ml-2" key={i} value={bank.name}>
-                  {bank.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-
-        <div className="relative">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Account Name
-          </label>
-
-          <input
-            disabled
-            type="text"
-            name="account_name"
-            value={loading ? "Validating..." : formData.name_enquiry_reference}
-            onChange={handleInputChange}
-            className="input"
-            placeholder="Account Name"
-            required
-          />
-        </div>
-      </>
+      <></>
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
