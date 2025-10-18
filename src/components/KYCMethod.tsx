@@ -322,12 +322,12 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
           console.log("An error occured!");
         }
       } else {
-        if (
-          formData.name_enquiry_reference.trim().toLowerCase() !==
-          formData.business_name.trim().toLowerCase()
-        ) {
-          return toast.error("Business name must match account name");
-        }
+        // if (
+        //   formData.name_enquiry_reference.trim().toLowerCase() !==
+        //   formData.business_name.trim().toLowerCase()
+        // ) {
+        //   return toast.error("Business name must match account name");
+        // }
 
         // if (!certificateFile) {
         //   return toast.error("Please upload your certificate");

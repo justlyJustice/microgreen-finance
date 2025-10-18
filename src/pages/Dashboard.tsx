@@ -61,9 +61,11 @@ const Dashboard: React.FC = () => {
 
   const displayBalance = (): string => {
     if (currency == "NGN") {
-      return showBalance ? formatCurrency(user?.balance!) : "******";
+      return showBalance
+        ? formatCurrency(Number(user?.balance!.toFixed(2)))
+        : "******";
     } else {
-      return showBalance ? `$ ${user?.usdtBalance}` : "******";
+      return showBalance ? `$ ${user?.usdtBalance!.toFixed(2)}` : "******";
     }
   };
 

@@ -166,6 +166,7 @@ const BalanceCard: React.FC<{
                 <p className="font-medium">
                   {user?.bankInformation?.accountNumber || "Not provided"}
                 </p>
+
                 {user?.bankInformation?.accountNumber && (
                   <button
                     onClick={() =>
@@ -182,7 +183,7 @@ const BalanceCard: React.FC<{
           </div>
         ) : (
           <div className="space-y-1">
-            <div>
+            {/* <div>
               <p className="text-xs text-white text-opacity-70">
                 USD Wallet Address
               </p>
@@ -198,12 +199,12 @@ const BalanceCard: React.FC<{
                   <Copy className="h-2 w-2" />
                 </button>
               </div>
-            </div>
+            </div> */}
 
-            <div>
+            {/* <div>
               <p className="text-xs text-white text-opacity-70">Network</p>
               <p className="font-medium">USDT (TRC20)</p>
-            </div>
+            </div> */}
           </div>
         )}
       </div>

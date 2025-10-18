@@ -16,7 +16,7 @@ import toast from "react-hot-toast";
 
 import { useAuthStore } from "../stores/authStore";
 import { formatCurrency } from "../utils/formatters";
-import { fundUsdAccount, getUsdStatus } from "../services/add-funds";
+import { fundUsdAccount } from "../services/add-funds";
 import { getExchangeRates } from "../services/virtual-card";
 import LoadingOverlay from "../components/LoadingOverlay";
 
@@ -26,8 +26,6 @@ type FundingStatus = "pending" | "successful" | "failed" | "idle";
 // Fee constants
 const USDT_DEPOSIT_FEE = 0.5; // Fixed fee in USD
 const PERCENT_DEPOSIT_FEE = 1.9; // Percentage fee (1.9%)
-
-// const PENDING_CONVERSION_KEY = "pending_usd_conversion";
 
 const ConvertUSD: React.FC = () => {
   const navigate = useNavigate();
@@ -43,9 +41,6 @@ const ConvertUSD: React.FC = () => {
   const [conversionDirection, setConversionDirection] =
     useState<ConversionDirection>("NGN_TO_USD");
   const [fundingStatus, setFundingStatus] = useState<FundingStatus>("idle");
-  // const [conversionReference, setConversionReference] = useState<string>("");
-  // const [checkingInterval, setCheckingInterval] =
-  //   useState<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const fetchExchangeRate = async () => {
@@ -141,7 +136,7 @@ const ConvertUSD: React.FC = () => {
       const netNairaAmount = netUsdAmount * exchangeRate;
 
       return {
-        netAmount: Number(netNairaAmount.toFixed(2)),
+        netAmount: Number(netNairaAmount),
         fees: {
           percentageFee: Number(percentageFee.toFixed(2)),
           fixedFee: USDT_DEPOSIT_FEE,
@@ -407,8 +402,14 @@ const ConvertUSD: React.FC = () => {
     },
   };
 
+  const handleCleanup = () => {
+    setTargetAmount(0);
+    setSourceAmount("");
+  };
+
   const handleConvert = async (e: React.FormEvent) => {
-    const usdBalance = user?.usdtBalance;
+    const currUsdBalance = user?.usdtBalance;
+
     e.preventDefault();
 
     if (!validateConversion()) {
@@ -438,14 +439,21 @@ const ConvertUSD: React.FC = () => {
         if (res.ok) {
           toast.success(res.data?.message!);
 
-          setFundingStatus("successful");
+          // setFundingStatus("successful");
+
+          const newAccountBalance = Number(res.data?.data.accountBalance);
+          const newUsdBalance = Number(res.data?.data.newTrx.amount);
 
           updateUser({
-            balance: Math.round(res.data?.data.accountBalance!),
-            usdtBalance: usdBalance! + Number(res.data?.data.newTrx.amount!),
+            balance: newAccountBalance,
+            usdtBalance: Number(currUsdBalance) + newUsdBalance,
           });
 
           setStep(3);
+
+          // Cleanup
+          handleCleanup();
+
           // const reference = res.data?.reference;
           // if (reference) {
           //   setConversionReference(reference);
@@ -773,7 +781,10 @@ const ConvertUSD: React.FC = () => {
                     <div className="flex items-center justify-between py-2 border-b border-primary-100">
                       <span className="text-gray-600">To:</span>
                       <span className="font-medium">
-                        {formatCurrency(netAmount, getTargetCurrency())}
+                        {formatCurrency(
+                          Number(usdAmountBeforeFees),
+                          getTargetCurrency()
+                        )}
                       </span>
                     </div>
 
@@ -794,6 +805,7 @@ const ConvertUSD: React.FC = () => {
                       {formatCurrency(getCurrentBalance(), getSourceCurrency())}
                     </span>
                   </div>
+
                   <div className="flex justify-between mb-2">
                     <span className="text-sm text-gray-500">
                       After Conversion:
@@ -813,7 +825,7 @@ const ConvertUSD: React.FC = () => {
 
                     <span className="text-sm font-medium">
                       {formatCurrency(
-                        getTargetBalance() + netAmount,
+                        getTargetBalance() + Number(usdAmountBeforeFees),
                         getTargetCurrency()
                       )}
                     </span>
@@ -829,6 +841,7 @@ const ConvertUSD: React.FC = () => {
                 >
                   Back
                 </button>
+
                 <button
                   type="submit"
                   disabled={isLoading}
@@ -863,7 +876,7 @@ const ConvertUSD: React.FC = () => {
               {/* {getStatusDescription()} */}
 
               {`You've received ${formatCurrency(
-                netAmount,
+                Number(usdAmountBeforeFees),
                 getTargetCurrency()
               )}`}
 
@@ -878,7 +891,7 @@ const ConvertUSD: React.FC = () => {
                   <span className="font-medium text-gray-900">
                     New {getTargetCurrency()} Balance:{" "}
                     {formatCurrency(
-                      getTargetBalance() + netAmount,
+                      getTargetBalance() + usdAmountBeforeFees!,
                       getTargetCurrency()
                     )}
                   </span>
