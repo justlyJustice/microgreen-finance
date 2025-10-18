@@ -402,10 +402,10 @@ const ConvertUSD: React.FC = () => {
     },
   };
 
-  const handleCleanup = () => {
-    setTargetAmount(0);
-    setSourceAmount("");
-  };
+  // const handleCleanup = () => {
+  //   setTargetAmount(0);
+  //   setSourceAmount("");
+  // };
 
   const handleConvert = async (e: React.FormEvent) => {
     const currUsdBalance = user?.usdtBalance;
@@ -439,7 +439,7 @@ const ConvertUSD: React.FC = () => {
         if (res.ok) {
           toast.success(res.data?.message!);
 
-          // setFundingStatus("successful");
+          setFundingStatus("successful");
 
           const newAccountBalance = Number(res.data?.data.accountBalance);
           const newUsdBalance = Number(res.data?.data.newTrx.amount);
@@ -452,7 +452,7 @@ const ConvertUSD: React.FC = () => {
           setStep(3);
 
           // Cleanup
-          handleCleanup();
+          // handleCleanup();
 
           // const reference = res.data?.reference;
           // if (reference) {
