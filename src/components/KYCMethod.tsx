@@ -207,15 +207,15 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
     }
 
     if (method === "nin") {
-      if (user?.balance! < 1000) {
-        return toast.error("Insufficient Balance");
-      }
+      // if (user?.balance! < 1000) {
+      //   return toast.error("Insufficient Balance");
+      // }
 
-      if (balanceAfterDeduction < leastExpectedBalance) {
-        return toast.error(
-          "User balance must hold at least N5,000 after kyc. Cannot upgrade to Business Tier."
-        );
-      }
+      // if (balanceAfterDeduction < leastExpectedBalance) {
+      //   return toast.error(
+      //     "User balance must hold at least N5,000 after kyc. Cannot upgrade to Business Tier."
+      //   );
+      // }
 
       if (step === 1) {
         try {
@@ -268,17 +268,17 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
         }
       }
     } else if (method === "cac") {
-      if (user?.balance! < 5500) {
-        return toast.error(
-          "Insufficient Balance. Cannot continue upgrade to Merchant Tier."
-        );
-      }
+      // if (user?.balance! < 5500) {
+      //   return toast.error(
+      //     "Insufficient Balance. Cannot continue upgrade to Merchant Tier."
+      //   );
+      // }
 
-      if (balanceAfterDeduction < leastExpectedBalance) {
-        return toast.error(
-          "User balance must hold at least N5,000 after kyc. Cannot upgrade to Business Tier."
-        );
-      }
+      // if (balanceAfterDeduction < leastExpectedBalance) {
+      //   return toast.error(
+      //     "User balance must hold at least N5,000 after kyc. Cannot upgrade to Business Tier."
+      //   );
+      // }
 
       if (activeTab === "cac") {
         try {
@@ -371,7 +371,7 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-lg font-medium text-gray-900">
           {method === "bvn" && "BVN Verification"}
-          {method === "cac" && "CAC Verification"}
+          {method === "cac" && "CAC/Corporate Verification"}
           {method === "nin" && "NIN Verification"}
         </h3>
 
@@ -611,7 +611,7 @@ const KYCMethod: React.FC<KYCMethodProps> = ({
                 }`}
                 onClick={() => setActiveTab("corporate")}
               >
-                Corporate
+                Corporate Business
               </button>
             </div>
 

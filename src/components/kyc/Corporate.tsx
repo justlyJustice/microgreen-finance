@@ -1,16 +1,5 @@
-import { ChangeEvent, useState } from "react";
-// import {
-//   CreditCard,
-// FileText,
-// Landmark,
-// Trash2,
-// UploadCloud,
-// User,
-// } from "lucide-react";
-// import toast from "react-hot-toast";
-// import { useBankStore } from "../../stores/banksStore";
+import { ChangeEvent } from "react";
 
-// import { verifyAccountName } from "../../services/transfer";
 import { CorporateFormData } from "./type";
 
 interface CorporateProps {
@@ -182,15 +171,12 @@ CorporateProps) => {
         onChange={handleInputChange}
         value={formData.cooperativeType}
       >
-        <option value="">Select</option>
         {corporateTypes.map((cType, i) => (
           <option key={i} value={cType.key}>
             {cType.name}
           </option>
         ))}
       </select>
-
-      <></>
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -295,6 +281,10 @@ CorporateProps) => {
             onChange={handleInputChange}
             className="input"
             placeholder="Cooperative Name"
+            required={
+              formData.cooperativeType === "cooperative-owner" ||
+              formData.cooperativeType === "cooperative-member"
+            }
           />
         </div>
       )}
@@ -315,6 +305,11 @@ CorporateProps) => {
               onChange={handleInputChange}
               className="input"
               placeholder="Certificate Number"
+              required={
+                formData.cooperativeType === "smedan" ||
+                formData.cooperativeType === "cooperative-owner" ||
+                formData.cooperativeType === "solo-cooperative"
+              }
             />
           </div>
         </>
@@ -334,6 +329,7 @@ CorporateProps) => {
               onChange={handleInputChange}
               className="input"
               placeholder="Chairman Name"
+              required={formData.cooperativeType === "cooperative-owner"}
             />
           </div>
 
@@ -349,6 +345,7 @@ CorporateProps) => {
               onChange={handleInputChange}
               className="input"
               placeholder="Secretary Name"
+              required={formData.cooperativeType === "cooperative-owner"}
             />
           </div>
         </>
@@ -356,6 +353,7 @@ CorporateProps) => {
 
       {(formData.cooperativeType === "smedan" ||
         formData.cooperativeType === "cooperative-owner" ||
+        formData.cooperativeType == "cooperative-member" ||
         formData.cooperativeType === "solo-cooperative") && (
         <div className="relative">
           <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -369,12 +367,19 @@ CorporateProps) => {
             onChange={handleInputChange}
             className="input"
             placeholder="Member Number"
+            required={
+              formData.cooperativeType === "smedan" ||
+              formData.cooperativeType === "cooperative-owner" ||
+              formData.cooperativeType == "cooperative-member" ||
+              formData.cooperativeType === "solo-cooperative"
+            }
           />
         </div>
       )}
 
       {(formData.cooperativeType === "smedan" ||
-        formData.cooperativeType === "cooperative-owner") && (
+        formData.cooperativeType === "cooperative-owner" ||
+        formData.cooperativeType === "cooperative-member") && (
         <div className="grid grid-cols-2 gap-2 max-sm:grid-cols-1">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -388,6 +393,11 @@ CorporateProps) => {
               onChange={handleInputChange}
               className="input"
               placeholder="Verification Code"
+              required={
+                formData.cooperativeType === "smedan" ||
+                formData.cooperativeType === "cooperative-owner" ||
+                formData.cooperativeType === "cooperative-member"
+              }
             />
           </div>
 
@@ -403,16 +413,15 @@ CorporateProps) => {
               onChange={handleInputChange}
               className="input"
               placeholder="Profile Number"
+              required={
+                formData.cooperativeType === "smedan" ||
+                formData.cooperativeType === "cooperative-owner" ||
+                formData.cooperativeType === "cooperative-member"
+              }
             />
           </div>
         </div>
       )}
-
-      {/* <div className="space-y-2">
-        {formData.isMember && (
-         
-        )}
-      </div> */}
     </div>
   );
 };

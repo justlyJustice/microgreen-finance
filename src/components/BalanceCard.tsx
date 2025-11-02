@@ -137,12 +137,10 @@ const BalanceCard: React.FC<{
         )}
       </div>
 
-      <div className="mb-6 bg-white bg-opacity-10 rounded-lg p-4">
-        <h3 className="text-sm font-medium mb-3">
-          {currency === "NGN" ? "Naira Account Details" : "USD Wallet Details"}
-        </h3>
+      {currency === "NGN" && (
+        <div className="mb-6 bg-white bg-opacity-10 rounded-lg p-4">
+          <h3 className="text-sm font-medium mb-3">Naira Account Details</h3>
 
-        {currency === "NGN" ? (
           <div className="space-y-1">
             <div>
               <p className="text-xs text-white text-opacity-70">Bank Name</p>
@@ -181,33 +179,8 @@ const BalanceCard: React.FC<{
               </div>
             </div>
           </div>
-        ) : (
-          <div className="space-y-1">
-            {/* <div>
-              <p className="text-xs text-white text-opacity-70">
-                USD Wallet Address
-              </p>
-
-              <div className="flex items-center justify-between">
-                <p className="font-medium truncate">{user?.usdtAddress}</p>
-
-                <button
-                  onClick={() => copyToClipboard(user?.usdtAddress!)}
-                  className="p-1 bg-white bg-opacity-20 rounded hover:bg-opacity-30 transition"
-                  aria-label="Copy wallet address"
-                >
-                  <Copy className="h-2 w-2" />
-                </button>
-              </div>
-            </div> */}
-
-            {/* <div>
-              <p className="text-xs text-white text-opacity-70">Network</p>
-              <p className="font-medium">USDT (TRC20)</p>
-            </div> */}
-          </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

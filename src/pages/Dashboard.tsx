@@ -20,6 +20,7 @@ import { formatCurrency } from "../utils/formatters";
 // import { useBalancePolling } from "../hooks/useBalancePolling";
 // import MonthlyIncome from "../components/MonthlyIncome";
 import { WelcomeModal } from "../components/WelcomeModal";
+import { CollectDetailsModal } from "../components/CollectDetailsModal";
 
 // import { useTransactionStore } from "../stores/transactionStore";
 
@@ -82,6 +83,8 @@ const Dashboard: React.FC = () => {
       </Helmet>
 
       <WelcomeModal />
+
+      {/* <CollectDetailsModal /> */}
 
       <div className="flex flex-col md:flex-row md:items-center md:justify-between">
         <motion.div variants={itemVariants}>

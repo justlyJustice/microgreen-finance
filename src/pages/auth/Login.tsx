@@ -62,6 +62,8 @@ const Login: React.FC = () => {
             accountNumber: user.accountNumber,
             bankName: user.bankName,
           },
+          cacNumber: user.cacNumber,
+          ninNumber: user.ninNumber,
           idNumber: user.idNumber,
           idCardType: user.idCardType,
           idCard: user.idCard,
@@ -88,8 +90,9 @@ const Login: React.FC = () => {
           lastDailyReset: user.lastDailyReset,
           lastMonthlyReset: user.lastMonthlyReset,
           lastTransferTime: user.lastTransferTime,
-          usdtAddress: user.usdtAddress,
+          // usdtAddress: user.usdtAddress,/
           usdtBalance: user.usdtBalance,
+          corporateBiz: user.corporateBiz,
         },
         data?.token!
       );

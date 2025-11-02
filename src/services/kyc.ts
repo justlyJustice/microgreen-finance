@@ -126,9 +126,10 @@ export const verifyCorporateKYC = (data: CorporateKyc) => {
     bank_name: data.bank_name,
     business_name: data.business_name,
     certificateNumber: data.certificateNumber,
-    corporativeName: data.cooperativeName,
+    cooperativeName: data.cooperativeName,
     profileNumber: data.profileNumber,
     verificationCode: data.verificationCode,
+    memberNumber: data.memberNumber,
     accountName: data.accountName,
     chairmanDetails: {
       name: data.chairmanName,

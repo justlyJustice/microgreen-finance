@@ -73,6 +73,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
     try {
       setShowModal(true);
       const res = await getTransationDetails(transactionId, type);
+
       if (!res.ok) {
         setShowModal(false);
         return toast.error(res?.data?.error!);
@@ -83,7 +84,6 @@ const TransactionList: React.FC<TransactionListProps> = ({
       }
     } catch (error) {
       console.log(error);
-    } finally {
     }
   };
 

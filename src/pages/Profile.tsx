@@ -26,7 +26,7 @@ const Profile: React.FC = () => {
 
   const [verificationMethod, setVerificationMethod] = useState<
     "bvn" | "nin" | "cac" | null
-  >("cac");
+  >(null);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     fullName: user?.fullName || "",
@@ -943,12 +943,15 @@ const Profile: React.FC = () => {
                           <VerificationStatus state={user?.isKYC} type="nin" />
                         )}
 
-                        {user?.tier === "merchant" && user?.cacVerified && (
-                          <VerificationStatus
-                            state={user?.isKYC}
-                            type="nin & cac/legal search"
-                          />
-                        )}
+                        {user?.tier === "merchant" &&
+                          (user?.cacVerified ||
+                            (user.corporateBiz &&
+                              user.corporateBiz.status === "verified")) && (
+                            <VerificationStatus
+                              state={user?.isKYC}
+                              type="nin & cac/legal search"
+                            />
+                          )}
 
                         {user?.tier === "business" && (
                           <div className="border border-gray-200 rounded-lg overflow-hidden">

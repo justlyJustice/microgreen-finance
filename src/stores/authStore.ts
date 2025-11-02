@@ -9,6 +9,15 @@ export type Beneficiary = {
   _id: string;
 };
 
+type CorporateBiz = {
+  _id: string;
+  status: "verified" | "pending" | "declined";
+  businessName: string;
+  accountNumber: string;
+  accountName: string;
+  bankName: string;
+};
+
 export interface User {
   id: string;
   idCardType?: string;
@@ -28,7 +37,10 @@ export interface User {
   transactions: [];
   profileImage?: string;
   cacVerified: boolean;
+  cacNumber?: string;
+  ninNumber?: string;
   merchantVerificationCode?: string;
+  corporateBiz: CorporateBiz;
   bvnVerified: boolean;
   ninVerified: boolean;
   isBlocked: boolean;
@@ -43,7 +55,7 @@ export interface User {
   lastDailyReset?: Date;
   lastMonthlyReset?: Date;
   lastTransferTime?: Date;
-  usdtAddress: string;
+  // usdtAddress: string;
   usdtBalance: number;
 }
 
