@@ -155,7 +155,13 @@ const TransactionList: React.FC<TransactionListProps> = ({
 
                         <div className="flex items-center text-xs text-gray-500 mt-0.5">
                           <Calendar size={12} className="mr-1" />
-                          <span>{formatDate(transaction.createdAt)}</span>
+                          <span>
+                            {formatDate(
+                              (transaction.createdAt &&
+                                transaction.createdAt) ||
+                                new Date(Date.now()).toDateString()
+                            )}
+                          </span>
                           {/* {transaction.recipient && (
                           <span className="ml-2">
                             To: {transaction.recipient}
