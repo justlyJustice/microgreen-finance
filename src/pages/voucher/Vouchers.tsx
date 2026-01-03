@@ -454,7 +454,6 @@ const Vouchers = () => {
   };
 
   const refreshVouchers = () => {
-    // In a real app, this would fetch fresh data from API
     setVouchers([...initialVouchers]);
     setFilteredVouchers([...initialVouchers]);
     setCurrentPage(1);
@@ -478,24 +477,24 @@ const Vouchers = () => {
           <div className="flex gap-3 mt-4 sm:mt-0">
             <button
               onClick={refreshVouchers}
-              className="px-4 py-2 flex items-center gap-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+              className="p-2 flex items-center gap-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
             >
-              <RefreshCw className="h-4 w-4" />
+              <RefreshCw className="h-2 w-2" />
               Refresh
             </button>
+
             <Link
-              to="#"
-              className="px-4 py-2 flex items-center gap-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+              to="/vouchers/buy-voucher"
+              className="p-2 flex items-center gap-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
             >
-              <Gift className="h-4 w-4" />
+              <Gift className="h-2 w-2" />
               Buy Voucher
             </Link>
           </div>
         </div>
       </motion.div>
 
-      {/* Stats Summary */}
-      <motion.div
+      {/* <motion.div
         variants={itemVariants}
         className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6"
       >
@@ -572,9 +571,8 @@ const Vouchers = () => {
             </div>
           </div>
         </div>
-      </motion.div>
+      </motion.div> */}
 
-      {/* Search and Filter Bar */}
       <motion.div variants={itemVariants} className="mb-6">
         <div className="bg-white rounded-card shadow-card p-4">
           <div className="flex flex-col md:flex-row gap-4">

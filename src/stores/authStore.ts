@@ -1,13 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export type Beneficiary = {
-  beneficiaryType: "individual" | "business" | "merchant";
-  bankName: string;
-  accountNumber: string;
-  accountName: string;
-  _id: string;
-};
+export type Transaction = {};
 
 export interface User {
   id: string;
@@ -18,11 +12,12 @@ export interface User {
     accountName: string;
     bankName: string;
   };
+  isBlocked: boolean;
   fullName: string;
   phoneNumber: string;
   joinDate: string;
   accountBalance: number;
-  transactions: [];
+  transactions: Transaction[];
   profileImage?: string;
   role:
     | "beneficiary"

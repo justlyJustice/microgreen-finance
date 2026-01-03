@@ -58,6 +58,7 @@ const Login: React.FC = () => {
           email: user.email,
           fullName: user.fullName,
           id: user._id,
+          isBlocked: user.isBlocked,
           joinDate: user.createdAt,
           phoneNumber: user.phoneNumber,
           profileImage: user.profileImage,

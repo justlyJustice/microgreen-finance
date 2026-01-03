@@ -46,6 +46,8 @@ const Register: React.FC = () => {
       !values.fullName ||
       !values.email ||
       !values.phoneNumber ||
+      !values.country ||
+      !values.gender ||
       !values.password
     ) {
       setError("Please fill in all fields");
@@ -59,8 +61,7 @@ const Register: React.FC = () => {
       if (!res) return;
 
       if (res.ok) {
-        toast.success("Registeration complete. Login to continue");
-        localStorage.setItem("isNewUser", "true");
+        toast.success("Registration complete. Login to continue");
         navigate("/");
       }
 
@@ -185,7 +186,7 @@ const Register: React.FC = () => {
                   value={values.phoneNumber}
                   onChange={handleChange}
                   className="input pl-10"
-                  placeholder="+234 000 000 000"
+                  placeholder="0123456789"
                 />
               </div>
             </div>
@@ -212,6 +213,7 @@ const Register: React.FC = () => {
                   onChange={handleChange}
                   className="input pl-10"
                 >
+                  <option value="">Choose Country</option>
                   <option value="nigeria">Nigeria</option>
                   <option value="south-africa">South Africa</option>
                   <option value="tanzania">Tanzania</option>
@@ -241,7 +243,7 @@ const Register: React.FC = () => {
                   onChange={handleChange}
                   className="input pl-10"
                 >
-                  <option value="">Select Option</option>
+                  <option value="">Select Gender</option>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                 </select>

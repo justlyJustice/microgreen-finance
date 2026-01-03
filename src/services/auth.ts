@@ -1,18 +1,28 @@
 import client from "../services/client";
+import { User } from "../stores/authStore";
 
 type Data = {
   fullName: string;
   email: string;
   phoneNumber: string;
   password: string;
+  country: string;
   gender: string;
 };
+
+interface ResUser extends Exclude<User, "joinDate"> {
+  _id: string;
+  createdAt: string;
+}
 
 // Registration/Login
 export const loginUser = (data: { email: string; password: string }) =>
   client.post<{
     success: boolean;
-    data: { [key: string]: any };
+    data: {
+      user: ResUser;
+      token: string;
+    };
     message: string;
   }>("/auth/login", data);
 
@@ -27,7 +37,7 @@ export const registerUser = (data: Data) =>
   client.post<{
     success: boolean;
     error?: string;
-    data: Record<string, string>;
+    user: Record<string, string>;
   }>("/auth/signup", data);
 
 // Password Reset

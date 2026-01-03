@@ -227,7 +227,7 @@ const statuses = [
   "Rejected",
 ];
 
-const AppliedLoansPage = () => {
+const AppliedGrants = () => {
   const [loans, setLoans] = useState(initialLoans);
   const [filteredLoans, setFilteredLoans] = useState(initialLoans);
   const [selectedLoan, setSelectedLoan] = useState(null);
@@ -442,7 +442,7 @@ const AppliedLoansPage = () => {
             <div className="flex gap-2">
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className={`py-0 px-2 flex items-center gap-2 rounded-lg transition-colors ${
+                className={`py-0 px-2y flex items-center gap-2 rounded-lg transition-colors ${
                   showFilters
                     ? "bg-primary-600 text-white"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -1079,4 +1079,4 @@ const AppliedLoansPage = () => {
   );
 };
 
-export default AppliedLoansPage;
+export default AppliedGrants;

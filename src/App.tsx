@@ -24,8 +24,10 @@ import useTransactions from "./hooks/useTransactions";
 import ConvertUSD from "./pages/ConvertUSD";
 import FundNaira from "./pages/FundNaira";
 import Vouchers from "./pages/voucher/Vouchers";
-import LoanForm from "./pages/loan/LoanForm";
-import AppliedLoansPage from "./pages/loan/AppliedLoans";
+import GrantForm from "./pages/grants/GrantForm";
+import AppliedGrants from "./pages/grants/AppliedGrants";
+import AvailableGrants from "./pages/grants/AvailableGrants";
+import VoucherPurchase from "./pages/voucher/VoucherPurchase";
 
 function App() {
   const { isAuthenticated, user } = useAuthStore();
@@ -48,7 +50,7 @@ function App() {
     };
   }, []);
 
-  useTransactions();
+  // useTransactions();
   useBalancePolling(user?.id);
 
   return (
@@ -94,10 +96,14 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/add-funds/naira" element={<FundNaira />} />
             <Route path="/add-funds/usd" element={<ConvertUSD />} />
-            <Route path="/vouchers/purchased" element={<Vouchers />} />
-            <Route path="/vouchers/purchase" element={<Vouchers />} />
-            <Route path="/loan/apply" element={<LoanForm />} />
-            <Route path="/loan/applied-loans" element={<AppliedLoansPage />} />
+            <Route path="/vouchers/" element={<Vouchers />} />
+            <Route
+              path="/vouchers/purchase-voucher"
+              element={<VoucherPurchase />}
+            />
+            <Route path="/grants" element={<AvailableGrants />} />
+            <Route path="/grants/applied-grants" element={<AppliedGrants />} />
+            <Route path="/grants/apply-grant" element={<GrantForm />} />
 
             <Route path="/profile" element={<Profile />} />
           </Route>

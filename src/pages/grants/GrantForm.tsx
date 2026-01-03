@@ -1,9 +1,8 @@
 import { motion } from "framer-motion";
 import { ChangeEvent, FormEvent, useState } from "react";
 
-const LoanForm = () => {
+const GrantForm = () => {
   const [formData, setFormData] = useState({
-    // Section A
     fullName: "",
     gender: "",
     dateOfBirth: "",
@@ -16,7 +15,6 @@ const LoanForm = () => {
     email: "",
     residentialAddress: "",
 
-    // Section B
     businessName: "",
     registrationStatus: "",
     registrationNumber: "",
@@ -194,7 +192,7 @@ const LoanForm = () => {
     >
       <motion.div variants={itemVariants}>
         <h1 className="text-2xl font-bold text-gray-900 mb-2">
-          Loan Application
+          Grant Application Form
         </h1>
 
         <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-3">
@@ -1654,4 +1652,4 @@ const LoanForm = () => {
   );
 };
 
-export default LoanForm;
+export default GrantForm;

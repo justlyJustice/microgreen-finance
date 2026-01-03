@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import {
-  // BarChart3,
-  // TrendingUp,
   CreditCard,
   ArrowRightCircle,
   Wallet,
@@ -11,6 +9,7 @@ import {
   DollarSign,
 } from "lucide-react";
 import { motion } from "framer-motion";
+
 import { useAuthStore } from "../stores/authStore";
 // import { useTransactionStore } from "../stores/transactionStore";
 import BalanceCard from "../components/BalanceCard";
@@ -19,7 +18,7 @@ import { formatCurrency } from "../utils/formatters";
 
 // import { useBalancePolling } from "../hooks/useBalancePolling";
 // import MonthlyIncome from "../components/MonthlyIncome";
-import { WelcomeModal } from "../components/WelcomeModal";
+// import { WelcomeModal } from "../components/WelcomeModal";
 
 // import { useTransactionStore } from "../stores/transactionStore";
 
@@ -62,7 +61,7 @@ const Dashboard: React.FC = () => {
   const displayBalance = (): string => {
     if (currency == "NGN") {
       return showBalance
-        ? formatCurrency(Number(user?.balance!.toFixed(2)))
+        ? formatCurrency(Number(user?.accountBalance!.toFixed(2)))
         : "******";
     } else {
       return showBalance ? `$ ${user?.usdtBalance!.toFixed(2)}` : "******";
@@ -77,13 +76,11 @@ const Dashboard: React.FC = () => {
       className="space-y-6"
     >
       <Helmet>
-        <title>Rulsar | Dashboard</title>
-        <meta name="description" content="Your rulsar user dashboard." />
+        <title>MicroGREEN - Dashboard</title>
+        <meta name="description" content="Your microgreen user dashboard." />
       </Helmet>
 
-      <WelcomeModal />
-
-      {/* <CollectDetailsModal /> */}
+      {/* <WelcomeModal /> */}
 
       <div className="flex flex-col md:flex-row md:items-center md:justify-between">
         <motion.div variants={itemVariants}>

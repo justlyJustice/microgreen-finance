@@ -33,31 +33,31 @@ const Sidebar: React.FC = () => {
 
   const voucherItems = [
     {
-      path: "/vouchers/purchased",
+      path: "/vouchers",
       icon: <TicketCheck size={18} />,
       label: "My Vouchers",
-      isActive: location.pathname === "/vouchers/purchased",
+      isActive: location.pathname === "/vouchers",
     },
     {
-      path: "/vouchers/buy-voucher",
+      path: "/vouchers/purchase-voucher",
       icon: <TicketPlus size={18} />,
       label: "Buy Voucher",
-      isActive: location.pathname === "/vouchers/buy-voucher",
+      isActive: location.pathname === "/vouchers/purchase-voucher",
     },
   ];
 
-  const loanItems = [
+  const grantsItems = [
     {
-      path: "/loan/apply",
+      path: "/grants",
       icon: <TicketCheck size={18} />,
-      label: "Apply",
-      isActive: location.pathname === "/loan/apply",
+      label: "Available Grants",
+      isActive: location.pathname === "/grants",
     },
     {
-      path: "/loan/applied-loans",
+      path: "/grants/applied",
       icon: <TicketPlus size={18} />,
       label: "Applied Loans",
-      isActive: location.pathname === "/loan/applied-loans",
+      isActive: location.pathname === "/grants/applied",
     },
   ];
 
@@ -103,12 +103,12 @@ const Sidebar: React.FC = () => {
     },
     {
       type: "dropdown",
-      name: "loanApply",
-      label: "Loan",
-      isOpen: openDropdown === "loanApply",
-      toggle: () => toggleDropdown("loanApply"),
+      name: "grantsApply",
+      label: "Grants",
+      isOpen: openDropdown === "grantsApply",
+      toggle: () => toggleDropdown("grantsApply"),
       icon: <Ticket size={20} />,
-      items: loanItems,
+      items: grantsItems,
     },
   ];
 
