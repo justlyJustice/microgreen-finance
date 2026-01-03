@@ -9,18 +9,8 @@ export type Beneficiary = {
   _id: string;
 };
 
-type CorporateBiz = {
-  _id: string;
-  status: "verified" | "pending" | "declined";
-  businessName: string;
-  accountNumber: string;
-  accountName: string;
-  bankName: string;
-};
-
 export interface User {
   id: string;
-  idCardType?: string;
   email: string;
   currency: string;
   bankInformation: {
@@ -31,31 +21,14 @@ export interface User {
   fullName: string;
   phoneNumber: string;
   joinDate: string;
-  balance: number;
-  idCard?: string;
-  idNumber?: string;
+  accountBalance: number;
   transactions: [];
   profileImage?: string;
-  cacVerified: boolean;
-  cacNumber?: string;
-  ninNumber?: string;
-  merchantVerificationCode?: string;
-  corporateBiz: CorporateBiz;
-  bvnVerified: boolean;
-  ninVerified: boolean;
-  isBlocked: boolean;
-  isKYC: "pending" | "verified" | "unverified";
-  vusd_card?: string;
-  beneficiaries: Beneficiary[] | [];
-  tier: "individual" | "merchant" | "business";
-  dailyTransferAmount: number;
-  dailyTransferLimit: number;
-  monthlyTransferAmount: number;
-  monthlyTransferLimit: number;
-  lastDailyReset?: Date;
-  lastMonthlyReset?: Date;
-  lastTransferTime?: Date;
-  // usdtAddress: string;
+  role:
+    | "beneficiary"
+    | "state-coordinator"
+    | "zonal-coordinator"
+    | "lga-representative";
   usdtBalance: number;
 }
 
@@ -69,8 +42,6 @@ interface AuthState {
   updateBalance: (amount: number) => void;
 }
 
-// For demo purposes, we'll use a fake authentication store
-// In a real app, you would integrate with a backend API
 export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({

@@ -3,25 +3,16 @@ import { NavLink, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
   Wallet,
-  SendHorizonal,
-  User,
   LogOut,
   Menu,
   X,
   ChevronDown,
   ChevronUp,
-  Smartphone,
-  // Tv,
-  // Zap,
-  // Book,
-  // Gift,
-  Wifi,
   CreditCard,
-  // Repeat,
-  // Bitcoin,
-  // MessageSquare,
-  FolderKanban,
-  BadgeDollarSign,
+  Ticket,
+  Leaf,
+  TicketCheck,
+  TicketPlus,
 } from "lucide-react";
 import { useAuthStore } from "../stores/authStore";
 import { KycModal } from "./KycModal";
@@ -32,8 +23,6 @@ const Sidebar: React.FC = () => {
   const { logout } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
 
-  const user = useAuthStore((store) => store.user);
-
   const location = useLocation();
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
@@ -42,77 +31,34 @@ const Sidebar: React.FC = () => {
     setOpenDropdown(openDropdown === dropdownName ? null : dropdownName);
   };
 
-  const billPaymentItems = [
+  const voucherItems = [
     {
-      path: "/bill-payment/airtime",
-      icon: <Smartphone size={18} />,
-      label: "Airtime",
-      isActive: location.pathname === "/bill-payment/airtime",
+      path: "/vouchers/purchased",
+      icon: <TicketCheck size={18} />,
+      label: "My Vouchers",
+      isActive: location.pathname === "/vouchers/purchased",
     },
     {
-      path: "/bill-payment/data",
-      icon: <Wifi size={18} />,
-      label: "Data",
-      isActive: location.pathname === "/bill-payment/data",
+      path: "/vouchers/buy-voucher",
+      icon: <TicketPlus size={18} />,
+      label: "Buy Voucher",
+      isActive: location.pathname === "/vouchers/buy-voucher",
     },
-    // {
-    //   path: "/bill-payment/recharge-card",
-    //   icon: <Gift size={18} />,
-    //   label: "Recharge Card",
-    //   isActive: location.pathname === "/bill-payment/recharge-card",
-    // },
-    // {
-    //   path: "/bill-payment/cable-tv",
-    //   icon: <Tv size={18} />,
-    //   label: "Cable TV",
-    //   isActive: location.pathname === "/bill-payment/cable-tv",
-    // },
-    // {
-    //   path: "/bill-payment/electricity",
-    //   icon: <Zap size={18} />,
-    //   label: "Electricity",
-    //   isActive: location.pathname === "/bill-payment/electricity",
-    // },
-    // {
-    //   path: "/bill-payment/education-pin",
-    //   icon: <Book size={18} />,
-    //   label: "Education PIN",
-    //   isActive: location.pathname === "/bill-payment/education-pin",
-    // },
   ];
 
-  const financialServicesItems = [
-    // {
-    //   path: "/services/virtual-naira-card",
-    //   icon: <CreditCard size={22} />,
-    //   label: "Naira Virtual Card",
-    //   isActive: location.pathname === "/services/virtual-naira-card",
-    //   // onClick: () => user?.isKYC === 'unverified' /
-    // },
+  const loanItems = [
     {
-      path: "/services/virtual-usd-card",
-      icon: <CreditCard size={22} />,
-      label: "USD Virtual Card",
-      isActive: location.pathname === "/services/virtual-usd-card",
+      path: "/loan/apply",
+      icon: <TicketCheck size={18} />,
+      label: "Apply",
+      isActive: location.pathname === "/loan/apply",
     },
-    // {
-    //   path: "/services/currency-exchange",
-    //   icon: <Repeat size={22} />,
-    //   label: "Currency Exchange",
-    //   isActive: location.pathname === "/services/currency-exchange",
-    // },
-    // {
-    //   path: "/services/usdt-funding",
-    //   icon: <Bitcoin size={22} />,
-    //   label: "USDT Funding",
-    //   isActive: location.pathname === "/services/usdt-funding",
-    // },
-    // {
-    //   path: "/services/bulk-sms",
-    //   icon: <MessageSquare size={22} />,
-    //   label: "Bulk SMS",
-    //   isActive: location.pathname === "/services/bulk-sms",
-    // },
+    {
+      path: "/loan/applied-loans",
+      icon: <TicketPlus size={18} />,
+      label: "Applied Loans",
+      isActive: location.pathname === "/loan/applied-loans",
+    },
   ];
 
   const addFundsItems = [
@@ -122,12 +68,12 @@ const Sidebar: React.FC = () => {
       label: "Fund Naira",
       isActive: location.pathname === "/add-funds/naira",
     },
-    {
-      path: "/add-funds/usd",
-      icon: <CreditCard size={22} />,
-      label: "Convert USD",
-      isActive: location.pathname === "/add-funds/usd",
-    },
+    // {
+    //   path: "/add-funds/usd",
+    //   icon: <CreditCard size={22} />,
+    //   label: "Convert USD",
+    //   isActive: location.pathname === "/add-funds/usd",
+    // },
   ];
 
   const navItems = [
@@ -137,7 +83,6 @@ const Sidebar: React.FC = () => {
       label: "Dashboard",
       isActive: location.pathname === "/dashboard",
     },
-
     {
       type: "dropdown",
       name: "addFunds",
@@ -147,55 +92,23 @@ const Sidebar: React.FC = () => {
       toggle: () => toggleDropdown("addFunds"),
       items: addFundsItems,
     },
-
-    // {
-    //   path: "/add-funds",
-    //   icon: <Wallet size={20} />,
-    //   label: "Add Funds",
-    //   isActive: location.pathname === "/add-funds",
-    // },
     {
-      path:
-        user?.isKYC === "verified" || user?.tier === "business"
-          ? "/transfer"
-          : "#",
-      // path: "/transfer",
-      icon: <SendHorizonal size={20} />,
-      label: "Transfer",
-      onClick:
-        user?.isKYC === "verified" || user?.tier === "business"
-          ? () => {}
-          : () => setIsOpen(true),
-      isActive: location.pathname === "/transfer",
+      type: "dropdown",
+      name: "voucher",
+      label: "Voucher",
+      isOpen: openDropdown === "voucher",
+      toggle: () => toggleDropdown("voucher"),
+      icon: <Ticket size={20} />,
+      items: voucherItems,
     },
     {
       type: "dropdown",
-      name: "billPayment",
-      label: "Bill Payment",
-      icon: <FolderKanban size={20} />,
-      isOpen: openDropdown === "billPayment",
-      toggle: () => toggleDropdown("billPayment"),
-      items: billPaymentItems,
-    },
-    {
-      type: "dropdown",
-      name: "financialServices",
-      label: "Financial Services",
-      icon: <BadgeDollarSign size={30} />,
-      isOpen:
-        user?.isKYC === "verified" ||
-        (user?.tier === "business" && openDropdown === "financialServices"),
-      toggle:
-        user?.isKYC === "verified" || user?.tier === "business"
-          ? () => toggleDropdown("financialServices")
-          : () => setIsOpen(true),
-      items: financialServicesItems,
-    },
-    {
-      path: "/profile",
-      icon: <User size={20} />,
-      label: "Profile",
-      isActive: location.pathname === "/profile",
+      name: "loanApply",
+      label: "Loan",
+      isOpen: openDropdown === "loanApply",
+      toggle: () => toggleDropdown("loanApply"),
+      icon: <Ticket size={20} />,
+      items: loanItems,
     },
   ];
 
@@ -213,8 +126,11 @@ const Sidebar: React.FC = () => {
       >
         <div className="flex items-center">
           {item.icon}
-          <span className={isMobile ? "ml-2" : "ml-3"}>{item.label}</span>
+          <span className={"text-base" + isMobile ? "ml-2" : "ml-3"}>
+            {item.label}
+          </span>
         </div>
+
         {item.isOpen ? <ChevronUp size={22} /> : <ChevronDown size={22} />}
       </button>
 
@@ -234,7 +150,7 @@ const Sidebar: React.FC = () => {
               }`}
             >
               {subItem.icon}
-              <span className="ml-3">{subItem.label}</span>
+              <span className="ml-3 text-sm">{subItem.label}</span>
             </NavLink>
           ))}
         </div>
@@ -296,7 +212,7 @@ const Sidebar: React.FC = () => {
                     to={item.path!}
                     onClick={() => {
                       closeMobileMenu();
-                      item.onClick && item.onClick();
+                      // item.onClick && item.onClick();
                     }}
                     className={() =>
                       `flex items-center p-2 rounded-lg transition-colors ${
@@ -333,10 +249,10 @@ const Sidebar: React.FC = () => {
           <div className="flex flex-col h-0 flex-1 bg-white border-r border-gray-200">
             <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
               <div className="flex items-center flex-shrink-0 px-4 mb-5">
-                <Wallet className="h-8 w-8 text-primary-600" />
+                <Leaf className="h-8 w-8 text-primary-600" />
 
                 <span className="ml-2 text-xl font-bold text-gray-900">
-                  Rulsar
+                  MicroGreen
                 </span>
               </div>
 
@@ -350,7 +266,7 @@ const Sidebar: React.FC = () => {
                     <NavLink
                       key={i}
                       to={item.path!}
-                      onClick={() => item.onClick && item.onClick()}
+                      // onClick={() => item.onClick && item.onClick()}
                       className={() =>
                         `flex items-center px-3 py-2 rounded-lg transition-colors ${
                           item.isActive

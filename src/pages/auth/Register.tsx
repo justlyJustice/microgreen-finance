@@ -97,7 +97,7 @@ const Register: React.FC = () => {
           Create your account
         </h2>
         <p className="mt-1 text-center text-sm text-gray-600">
-          Join Rulsar Wallet and manage your finances
+          Join MicroGreen and explore the
         </p>
       </div>
 
@@ -204,7 +204,6 @@ const Register: React.FC = () => {
                 </div>
 
                 <select
-                  disabled
                   id="country"
                   name="country"
                   autoComplete="country"
@@ -214,6 +213,8 @@ const Register: React.FC = () => {
                   className="input pl-10"
                 >
                   <option value="nigeria">Nigeria</option>
+                  <option value="south-africa">South Africa</option>
+                  <option value="tanzania">Tanzania</option>
                 </select>
               </div>
             </div>

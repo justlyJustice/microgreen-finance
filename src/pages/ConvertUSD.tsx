@@ -288,85 +288,6 @@ const ConvertUSD: React.FC = () => {
     return true;
   };
 
-  // const getPendingConversion = (): PendingConversion | null => {
-  //   try {
-  //     const pending = localStorage.getItem(PENDING_CONVERSION_KEY);
-
-  //     return pending ? JSON.parse(pending) : null;
-  //   } catch (error) {
-  //     console.error("Error reading pending conversion:", error);
-  //     return null;
-  //   }
-  // };
-
-  // const setPendingConversion = (conversion: PendingConversion) => {
-  //   try {
-  //     localStorage.setItem(PENDING_CONVERSION_KEY, JSON.stringify(conversion));
-  //   } catch (error) {
-  //     console.error("Error saving pending conversion:", error);
-  //   }
-  // };
-
-  // const clearPendingConversion = () => {
-  //   try {
-  //     localStorage.removeItem(PENDING_CONVERSION_KEY);
-  //   } catch (error) {
-  //     console.error("Error clearing pending conversion:", error);
-  //   }
-  // };
-
-  // const startStatusChecking = (reference: string) => {
-  //   if (checkingInterval) {
-  //     clearInterval(checkingInterval);
-  //   }
-
-  //   const interval = setInterval(async () => {
-  //     await checkFundingStatus(reference);
-  //   }, 5000); // Check every 5 seconds
-
-  //   setCheckingInterval(interval);
-  // };
-
-  // const stopStatusChecking = () => {
-  //   if (checkingInterval) {
-  //     clearInterval(checkingInterval);
-  //     setCheckingInterval(null);
-  //   }
-  // };
-
-  // const checkFundingStatus = async (reference: string) => {
-  //   try {
-  //     const res = await getUsdStatus(reference);
-
-  //     if (res.ok) {
-  //       const status = res.data?.status?.toLowerCase();
-
-  //       if (status === "successful" || status === "completed") {
-  //         setFundingStatus("successful");
-  //         stopStatusChecking();
-  //         clearPendingConversion();
-
-  //         const newBalance = res.data?.balance!;
-  //         updateUser({
-  //           usdtBalance: newBalance,
-  //           balance: getCurrentBalance() - parseFloat(sourceAmount),
-  //         });
-
-  //         toast.success("USD funding completed successfully!");
-  //       } else if (status === "failed" || status === "rejected") {
-  //         setFundingStatus("failed");
-  //         stopStatusChecking();
-  //         clearPendingConversion();
-  //         setError("USD funding failed. Please try again.");
-  //       }
-  //     } else {
-  //       console.error("Error checking funding status:", res.data?.error);
-  //     }
-  //   } catch (err) {
-  //     console.error("Failed to check funding status:", err);
-  //   }
-  // };
-
   const handleGoToDashboard = () => {
     navigate("/dashboard");
   };
@@ -401,11 +322,6 @@ const ConvertUSD: React.FC = () => {
       },
     },
   };
-
-  // const handleCleanup = () => {
-  //   setTargetAmount(0);
-  //   setSourceAmount("");
-  // };
 
   const handleConvert = async (e: React.FormEvent) => {
     const currUsdBalance = user?.usdtBalance;
@@ -633,6 +549,7 @@ const ConvertUSD: React.FC = () => {
                     <Info className="h-4 w-4 mr-1" />
                     Conversion Details
                   </h3>
+
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Amount to convert:</span>

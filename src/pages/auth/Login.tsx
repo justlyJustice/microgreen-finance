@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { Eye, EyeOff, Wallet, Mail, Lock, ArrowRight } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, ArrowRight, Leaf } from "lucide-react";
 import { toast } from "react-hot-toast";
 
 import { loginUser } from "../../services/auth";
@@ -36,7 +36,6 @@ const Login: React.FC = () => {
     const { email, password } = values;
 
     if (!email || !password) {
-      // setError("Please fill in all fields");
       return;
     }
 
@@ -47,26 +46,14 @@ const Login: React.FC = () => {
       const data = res.data?.data;
       const user = data?.user;
 
-      if (user.isBlocked) {
-        return toast.error(
-          "Your account has been blocked. Please contact admin."
-        );
-      }
-
       login(
         {
-          beneficiaries: user.beneficiaries,
-          balance: user.accountBalance,
+          accountBalance: user.accountBalance,
           bankInformation: {
             accountName: user.accountName,
             accountNumber: user.accountNumber,
             bankName: user.bankName,
           },
-          cacNumber: user.cacNumber,
-          ninNumber: user.ninNumber,
-          idNumber: user.idNumber,
-          idCardType: user.idCardType,
-          idCard: user.idCard,
           currency: user.currency,
           email: user.email,
           fullName: user.fullName,
@@ -75,24 +62,8 @@ const Login: React.FC = () => {
           phoneNumber: user.phoneNumber,
           profileImage: user.profileImage,
           transactions: user.transactions,
-          bvnVerified: user.bvnVerified,
-          isKYC: user.isKYC,
-          isBlocked: user.isBlocked,
-          cacVerified: user.cacVerified,
-          ninVerified: user.ninVerified,
-          vusd_card: user.vusd_card,
-          tier: user.tier,
-          dailyTransferAmount: user.dailyTransferAmount,
-          dailyTransferLimit: user.dailyTransferLimit,
-          merchantVerificationCode: user.merchantVerificationCode,
-          monthlyTransferAmount: user.monthlyTransferAmount,
-          monthlyTransferLimit: user.monthlyTransferLimit,
-          lastDailyReset: user.lastDailyReset,
-          lastMonthlyReset: user.lastMonthlyReset,
-          lastTransferTime: user.lastTransferTime,
-          // usdtAddress: user.usdtAddress,/
+          role: user.role,
           usdtBalance: user.usdtBalance,
-          corporateBiz: user.corporateBiz,
         },
         data?.token!
       );
@@ -116,12 +87,12 @@ const Login: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Rulsar | Login</title>
+        <title>MicroGREEN - Login</title>
         <meta
           name="description"
-          content="Welcome to Rulsar. Sign in to your account to access your dashboard."
+          content="Welcome to MicroGREEN. Sign in to your account to access your dashboard."
         />
-        <meta property="og:title" content="Rulsar | Login" />
+        <meta property="og:title" content="MicroGREEN - Login" />
         <meta
           property="og:description"
           content="Welcome to Rulsar. Sign in to your account to access your dashboard."
@@ -132,12 +103,12 @@ const Login: React.FC = () => {
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <div className="flex justify-center">
             <div className="h-14 w-14 rounded-full bg-primary-600 flex items-center justify-center">
-              <Wallet className="h-8 w-8 text-white" />
+              <Leaf className="h-8 w-8 text-white" />
             </div>
           </div>
 
           <h2 className="mt-2 text-center text-3xl font-bold tracking-tight text-gray-900">
-            Welcome to Rulsar
+            Welcome to MicroGREEN
           </h2>
 
           <p className="mt-2 text-center text-sm text-gray-600">

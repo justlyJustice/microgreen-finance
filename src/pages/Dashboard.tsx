@@ -20,7 +20,6 @@ import { formatCurrency } from "../utils/formatters";
 // import { useBalancePolling } from "../hooks/useBalancePolling";
 // import MonthlyIncome from "../components/MonthlyIncome";
 import { WelcomeModal } from "../components/WelcomeModal";
-import { CollectDetailsModal } from "../components/CollectDetailsModal";
 
 // import { useTransactionStore } from "../stores/transactionStore";
 
@@ -113,8 +112,8 @@ const Dashboard: React.FC = () => {
                 Quick Actions
               </h3>
 
-              <div className="space-y-3">
-                <Link
+              <div className="">
+                {/* <Link
                   to="/add-funds/usd"
                   className="flex items-center p-2 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
                 >
@@ -133,7 +132,7 @@ const Dashboard: React.FC = () => {
                   </div>
 
                   <ArrowRightCircle className="ml-auto h-5 w-5 text-gray-400" />
-                </Link>
+                </Link> */}
 
                 <Link
                   to="/add-funds/naira"
@@ -152,25 +151,6 @@ const Dashboard: React.FC = () => {
                     </p>
                   </div>
 
-                  <ArrowRightCircle className="ml-auto h-5 w-5 text-gray-400" />
-                </Link>
-
-                <Link
-                  to="#"
-                  className="flex items-center p-2 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
-                >
-                  <div className="w-20 h-10 rounded-full bg-accent-100 flex items-center justify-center text-accent-600">
-                    <Send className="h-3 w-2" />
-                  </div>
-
-                  <div className="ml-2">
-                    <p className="text-sm font-medium text-gray-900">
-                      Transfer Funds
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      Send money to others
-                    </p>
-                  </div>
                   <ArrowRightCircle className="ml-auto h-5 w-5 text-gray-400" />
                 </Link>
               </div>

@@ -8,6 +8,6 @@ export default defineConfig({
     exclude: ["lucide-react", "js-big-decimal"],
   },
   server: {
-    port: 8000,
+    port: 5500,
   },
 });
