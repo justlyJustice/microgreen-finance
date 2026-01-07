@@ -19,7 +19,7 @@ import {
   getUpdatedUser,
   getUsdStatus,
 } from "../services/add-funds";
-import { getExchangeRates } from "../services/virtual-card";
+import { getUSDExchangeRate } from "../services/exchange-rate";
 import LoadingOverlay from "../components/LoadingOverlay";
 import toast, { useToasterStore } from "react-hot-toast";
 
@@ -55,7 +55,7 @@ const AddFunds: React.FC = () => {
     const fetchExchangeRate = async () => {
       try {
         setIsGettingExchangeRate(true);
-        const res = await getExchangeRates();
+        const res = await getUSDExchangeRate();
         setIsGettingExchangeRate(false);
 
         if (!res.ok) {
@@ -241,7 +241,7 @@ const AddFunds: React.FC = () => {
         throw new Error("Failed to fetch updated balance");
       }
 
-      const currentFrontendBalance = user?.balance || 0;
+      const currentFrontendBalance = user?.accountBalance || 0;
       const newBackendBalance = res.data?.user.accountBalance;
 
       console.log("New Balance", newBackendBalance);
@@ -331,7 +331,7 @@ const AddFunds: React.FC = () => {
       return;
     }
 
-    if (parseFloat(nairaAmount) > (user?.balance || 0)) {
+    if (parseFloat(nairaAmount) > (user?.accountBalance || 0)) {
       setError("Insufficient Naira balance");
       return;
     }
@@ -350,16 +350,14 @@ const AddFunds: React.FC = () => {
 
       if (res.ok) {
         // toast.success(res.data?.message!);
-        const usdRes = await getUsdStatus(res.data?.reference!);
-
-        if (!usdRes.ok) {
-          setError(usdRes.data?.error!);
-          toast.error(usdRes.data?.error!);
-
-          return setTimeout(() => {
-            setError("");
-          }, 3000);
-        }
+        // const usdRes = await getUsdStatus(res.data?.reference!);
+        // if (!usdRes.ok) {
+        //   setError(usdRes.data?.error!);
+        //   toast.error(usdRes.data?.error!);
+        //   return setTimeout(() => {
+        //     setError("");
+        //   }, 3000);
+        // }
       }
 
       // const amount = parseFloat(nairaAmount);
@@ -367,7 +365,7 @@ const AddFunds: React.FC = () => {
 
       // // Update balances
       // if (user) {
-      //   updateBalance(user.balance - nairaAmount);
+      //   updateBalance(user.accountBalance - nairaAmount);
       //   updateUSDTBalance((user.usdtBalance || 0) + finalUsdtAmount);
       // }
 
@@ -521,7 +519,7 @@ const AddFunds: React.FC = () => {
                   <div className="mt-3 flex items-center justify-between">
                     <p className="text-sm text-gray-500">Current Balance</p>
                     <p className="text-sm font-medium text-gray-900">
-                      {formatCurrency(user?.balance || 0)}
+                      {formatCurrency(user?.accountBalance || 0)}
                     </p>
                   </div>
 
@@ -842,103 +840,7 @@ const AddFunds: React.FC = () => {
                           {error}
                         </div>
                       )}
-
-                    {/* <div className="p-4 bg-accent-50 border border-accent-100 rounded-lg">
-                  <p className="text-sm text-accent-700">
-                    <span className="font-medium">Important:</span> For demo
-                    purposes, we'll add the funds immediately after you submit
-                    this form. In a real application, you would need to actually
-                    make the bank transfer.
-                  </p>
-                </div> */}
                   </div>
-
-                  {/* {paymentMethod === "card" ? (
-                <div className="space-y-4">
-                  <div>
-                    <label
-                      htmlFor="cardNumber"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                      Card Number
-                    </label>
-
-                    <input
-                      type="text"
-                      id="cardNumber"
-                      className="input"
-                      placeholder="1234 5678 9012 3456"
-                      value={cardDetails.number}
-                      onChange={handleCardNumberChange}
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="cardName"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                      Cardholder Name
-                    </label>
-                    <input
-                      type="text"
-                      id="cardName"
-                      className="input"
-                      placeholder="John Doe"
-                      value={cardDetails.name}
-                      onChange={(e) =>
-                        setCardDetails({
-                          ...cardDetails,
-                          fullName: e.target.value,
-                        })
-                      }
-                      required
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label
-                        htmlFor="expiry"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                      >
-                        Expiry Date
-                      </label>
-
-                      <input
-                        type="text"
-                        id="expiry"
-                        className="input"
-                        placeholder="MM/YY"
-                        value={cardDetails.expiry}
-                        onChange={handleExpiryChange}
-                        required
-                      />
-                    </div>
-
-                    <div>
-                      <label
-                        htmlFor="cvc"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                      >
-                        CVC
-                      </label>
-                      <input
-                        type="text"
-                        id="cvc"
-                        className="input"
-                        placeholder="123"
-                        value={cardDetails.cvc}
-                        onChange={handleCVCChange}
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                
-              )} */}
 
                   <div className="flex justify-between mt-6">
                     <button
@@ -1017,7 +919,7 @@ const AddFunds: React.FC = () => {
                   <div className="flex items-center justify-center">
                     <Wallet className="h-5 w-5 text-primary-600 mr-2" />
                     <span className="font-medium text-gray-900">
-                      New Balance: {formatCurrency(user?.balance || 0)}
+                      New Balance: {formatCurrency(user?.accountBalance || 0)}
                     </span>
                   </div>
                 </div>
@@ -1108,7 +1010,7 @@ const AddFunds: React.FC = () => {
                         Current Naira Balance
                       </p>
                       <p className="text-sm font-medium text-gray-900">
-                        {formatCurrency(user?.balance || 0)}
+                        {formatCurrency(user?.accountBalance || 0)}
                       </p>
                     </div>
 
@@ -1235,7 +1137,7 @@ const AddFunds: React.FC = () => {
                           Current Naira Balance:
                         </span>
                         <span className="text-sm font-medium">
-                          {formatCurrency(user?.balance || 0)}
+                          {formatCurrency(user?.accountBalance || 0)}
                         </span>
                       </div>
                       <div className="flex justify-between mb-2">
@@ -1244,7 +1146,8 @@ const AddFunds: React.FC = () => {
                         </span>
                         <span className="text-sm font-medium">
                           {formatCurrency(
-                            (user?.balance || 0) - parseFloat(nairaAmount)
+                            (user?.accountBalance || 0) -
+                              parseFloat(nairaAmount)
                           )}
                         </span>
                       </div>

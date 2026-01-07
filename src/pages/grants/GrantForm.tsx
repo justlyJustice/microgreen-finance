@@ -215,7 +215,7 @@ const GrantForm = () => {
           className="bg-white rounded-card shadow-card p-6"
         >
           <h2 className="text-lg font-bold text-gray-900 mb-3 pb-2 border-b">
-            Section A: Applicant Information
+            Applicant Information
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -407,7 +407,7 @@ const GrantForm = () => {
           className="bg-white rounded-card shadow-card p-6"
         >
           <h2 className="text-lg font-bold text-gray-900 mb-3 pb-2 border-b">
-            Section B: Enterprise Information
+            Enterprise Information
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -544,13 +544,13 @@ const GrantForm = () => {
           </div>
         </motion.section>
 
-        {/* Section C: Green Sector Classification */}
+        {/* Green Sector Classification */}
         <motion.section
           variants={itemVariants}
           className="bg-white rounded-card shadow-card p-6"
         >
           <h2 className="text-lg font-bold text-gray-900 mb-3 pb-2 border-b">
-            Section C: Green Sector Classification
+            Green Sector Classification
           </h2>
 
           <div className="space-y-6">
@@ -617,13 +617,13 @@ const GrantForm = () => {
           </div>
         </motion.section>
 
-        {/* Section D: Grant Request Details */}
+        {/* Grant Request Details */}
         <motion.section
           variants={itemVariants}
           className="bg-white rounded-card shadow-card p-6"
         >
           <h2 className="text-lg font-bold text-gray-900 mb-3 pb-2 border-b">
-            Section D: Grant Request Details
+            Grant Request Details
           </h2>
 
           <div className="space-y-6">
@@ -719,13 +719,13 @@ const GrantForm = () => {
           </div>
         </motion.section>
 
-        {/* Section E: Business Impact and Job Creation */}
+        {/* Business Impact and Job Creation */}
         <motion.section
           variants={itemVariants}
           className="bg-white rounded-card shadow-card p-6"
         >
           <h2 className="text-lg font-bold text-gray-900 mb-3 pb-2 border-b">
-            Section E: Business Impact and Job Creation
+            Business Impact and Job Creation
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -837,13 +837,13 @@ const GrantForm = () => {
           </div>
         </motion.section>
 
-        {/* Section F: Environmental and Social Safeguards */}
+        {/* Environmental and Social Safeguards */}
         <motion.section
           variants={itemVariants}
           className="bg-white rounded-card shadow-card p-6"
         >
           <h2 className="text-lg font-bold text-gray-900 mb-3 pb-2 border-b">
-            Section F: Environmental and Social Safeguards
+            Environmental and Social Safeguards
           </h2>
 
           <div className="space-y-6">
@@ -909,13 +909,13 @@ const GrantForm = () => {
           </div>
         </motion.section>
 
-        {/* Section G: Capacity Building and Training Commitment */}
+        {/* Capacity Building and Training Commitment */}
         <motion.section
           variants={itemVariants}
           className="bg-white rounded-card shadow-card p-6"
         >
           <h2 className="text-lg font-bold text-gray-900 mb-3 pb-2 border-b">
-            Section G: Capacity Building and Training Commitment
+            Capacity Building and Training Commitment
           </h2>
 
           <div className="space-y-6">
@@ -972,13 +972,13 @@ const GrantForm = () => {
           </div>
         </motion.section>
 
-        {/* Section I: Business Operations & Management */}
+        {/* Business Operations & Management */}
         <motion.section
           variants={itemVariants}
           className="bg-white rounded-card shadow-card p-6"
         >
           <h2 className="text-lg font-bold text-gray-900 mb-3 pb-2 border-b">
-            Section I: Business Operations & Management
+            Business Operations & Management
           </h2>
 
           <div className="space-y-6">
@@ -1099,13 +1099,13 @@ const GrantForm = () => {
           </div>
         </motion.section>
 
-        {/* Section J: Market & Customers */}
+        {/* Market & Customers */}
         <motion.section
           variants={itemVariants}
           className="bg-white rounded-card shadow-card p-6"
         >
           <h2 className="text-lg font-bold text-gray-900 mb-3 pb-2 border-b">
-            Section J: Market & Customers
+            Market & Customers
           </h2>
 
           <div className="space-y-6">
@@ -1196,13 +1196,13 @@ const GrantForm = () => {
           </div>
         </motion.section>
 
-        {/* Section K: Innovation & Sustainability */}
+        {/* Innovation & Sustainability */}
         <motion.section
           variants={itemVariants}
           className="bg-white rounded-card shadow-card p-6"
         >
           <h2 className="text-lg font-bold text-gray-900 mb-3 pb-2 border-b">
-            Section K: Innovation & Sustainability
+            Innovation & Sustainability
           </h2>
 
           <div className="space-y-6">
@@ -1282,13 +1282,13 @@ const GrantForm = () => {
           </div>
         </motion.section>
 
-        {/* Section L: Risk Assessment */}
+        {/* Risk Assessment */}
         <motion.section
           variants={itemVariants}
           className="bg-white rounded-card shadow-card p-6"
         >
           <h2 className="text-lg font-bold text-gray-900 mb-3 pb-2 border-b">
-            Section L: Risk Assessment
+            Risk Assessment
           </h2>
 
           <div className="space-y-6">
@@ -1325,13 +1325,13 @@ const GrantForm = () => {
           </div>
         </motion.section>
 
-        {/* Section M: Financial Projections (Simplified) */}
+        {/* Financial Projections (Simplified) */}
         <motion.section
           variants={itemVariants}
           className="bg-white rounded-card shadow-card p-6"
         >
           <h2 className="text-lg font-bold text-gray-900 mb-3 pb-2 border-b">
-            Section M: Financial Projections (Simplified)
+            Financial Projections (Simplified)
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -1395,13 +1395,13 @@ const GrantForm = () => {
           </div>
         </motion.section>
 
-        {/* Section N: Previous Funding & Support */}
+        {/* Previous Funding & Support */}
         <motion.section
           variants={itemVariants}
           className="bg-white rounded-card shadow-card p-6"
         >
           <h2 className="text-lg font-bold text-gray-900 mb-3 pb-2 border-b">
-            Section N: Previous Funding & Support
+            Previous Funding & Support
           </h2>
 
           <div className="space-y-6">
@@ -1463,13 +1463,13 @@ const GrantForm = () => {
           </div>
         </motion.section>
 
-        {/* Section O: Digital Readiness */}
+        {/* Digital Readiness */}
         <motion.section
           variants={itemVariants}
           className="bg-white rounded-card shadow-card p-6"
         >
           <h2 className="text-lg font-bold text-gray-900 mb-3 pb-2 border-b">
-            Section O: Digital Readiness
+            Digital Readiness
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -1539,13 +1539,13 @@ const GrantForm = () => {
           </div>
         </motion.section>
 
-        {/* Section P: Consent & Data Protection */}
+        {/* Consent & Data Protection */}
         <motion.section
           variants={itemVariants}
           className="bg-white rounded-card shadow-card p-6"
         >
           <h2 className="text-lg font-bold text-gray-900 mb-3 pb-2 border-b">
-            Section P: Consent & Data Protection
+            Consent & Data Protection
           </h2>
 
           <div>
@@ -1573,13 +1573,13 @@ const GrantForm = () => {
           </div>
         </motion.section>
 
-        {/* Section H: Declaration */}
+        {/* Declaration */}
         <motion.section
           variants={itemVariants}
           className="bg-white rounded-card shadow-card p-6"
         >
           <h2 className="text-lg font-bold text-gray-900 mb-3 pb-2 border-b">
-            Section H: Declaration
+            Declaration
           </h2>
 
           <div className="space-y-6">
